@@ -1,0 +1,56 @@
+{
+  "id": "18953",
+  "lat": "46.76352736664449",
+  "lon": "6.643722295760882",
+  "elevation": null,
+  "location": {
+    "locality": "Yverdon-les-Bains",
+    "country": {
+      "iso": "CH",
+      "name": "Switzerland"
+    },
+    "continent":{
+      "code": "EU",
+      "name": "Europe"
+    }
+  },
+  "user": {
+    "id": "18249",
+    "name": "RedFox"
+  },
+  "link": "http://hitchwiki.org/maps/?place=18953",
+  "datetime": "2014-06-19 09:45:48",
+  "rating": "1",
+  "rating_stats": {
+    "rating_count": "1"
+  },
+  "waiting_stats": {
+    "avg": "15",
+    "avg_textual": "15min",
+    "count": "1"
+  },
+  "description": {
+    "fr_FR":{
+      "datetime": "2014-06-19 09:45:48",
+      "fk_user": "18249",
+      "description": "EntrÃ©e d'autoroute vers Lausanne/GenÃ¨ve/Italie ou Neuchatel/Bienne.",
+      "versions": "1"
+    },
+    "en_UK": {
+      "datetime": "2014-06-19 09:45:48",
+      "fk_user": "18249",
+      "description": "Highway entrance towards Lausanne/Geneva/Italy or Neuchatel/Biel",
+      "versions": "1"
+    }
+  },
+  "comments":[{
+    "id": "7318",
+    "comment": "I started a few trips from here, it never took longer than 15 minutes to be picked-up. The road is 2 lines and not very busy, a car can easily stop. The police station is just the opposite side of the road so beware (never had any problem though).",
+    "datetime": "2014-06-19 09:48:13",
+    "user":{
+      "id": "18249",
+      "name": "RedFox"
+    }
+  }],
+  "comments_count": 1
+}

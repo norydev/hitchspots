@@ -1,0 +1,56 @@
+<%
+def color(rating)
+  case rating
+  when "0", "5" then "#placemark-red"
+  when "4"      then "#placemark-orange"
+  when "3"      then "#placemark-yellow"
+  else "#placemark-green"
+  end
+end
+%>
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+  <Style id="placemark-green">
+    <IconStyle>
+      <Icon>
+        <href>http://mapswith.me/placemarks/placemark-green.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-orange">
+    <IconStyle>
+      <Icon>
+        <href>http://mapswith.me/placemarks/placemark-orange.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-yellow">
+    <IconStyle>
+      <Icon>
+        <href>http://mapswith.me/placemarks/placemark-yellow.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-red">
+    <IconStyle>
+      <Icon>
+        <href>http://mapswith.me/placemarks/placemark-red.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <name>HitchSpots: <%= title %></name>
+  <visibility>1</visibility>
+  <% spots.each_with_index do |spot, i| %>
+  <Placemark>
+    <name><%= "Spot #{i}" %></name>
+    <TimeStamp><when><%= time %></when></TimeStamp>
+    <styleUrl><%= color(spot[:rating]) %></styleUrl>
+    <Point><coordinates><%= spot[:lon] %>,<%= spot[:lat] %></coordinates></Point>
+    <ExtendedData xmlns:mwm="http://mapswith.me">
+      <mwm:scale>16</mwm:scale>
+    </ExtendedData>
+  </Placemark>
+  <% end %>
+</Document>
+</kml>

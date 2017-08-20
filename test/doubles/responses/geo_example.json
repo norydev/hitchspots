@@ -1,0 +1,21 @@
+[
+  {
+    "place_id": "114173",
+    "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright",
+    "osm_type": "node",
+    "osm_id": "20953083",
+    "boundingbox":[
+      "50.778361",
+      "51.098361",
+      "6.799974",
+      "7.119974"
+    ],
+    "lat": "50.938361",
+    "lon": "6.959974",
+    "display_name": "Cologne, District de Cologne, Rhénanie-du-Nord-Westphalie, Allemagne",
+    "class": "place",
+    "type": "city",
+    "importance": 0.82233722043841,
+    "icon": "https://nominatim.openstreetmap.org/images/mapicons/poi_place_city.p.20.png"
+  }
+]
