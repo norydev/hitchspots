@@ -27,32 +27,43 @@ module Hitchspots
     private
 
     def areas(coordinates)
-      bounds = []
+      zones = []
       coordinates.each_with_index do |(this_lon, this_lat), i|
         next if i == 0
 
         prev_lon, prev_lat = *coordinates[i - 1]
 
         # Add about 10km on each side to overlap
-        bounds << [[this_lat, prev_lat].min - 0.1,
-                   [this_lat, prev_lat].max + 0.1,
-                   [this_lon, prev_lon].min - 0.1,
-                   [this_lon, prev_lon].max + 0.1]
+        zones << [[this_lat, prev_lat].min - 0.1,
+                  [this_lat, prev_lat].max + 0.1,
+                  [this_lon, prev_lon].min - 0.1,
+                  [this_lon, prev_lon].max + 0.1]
       end
-      bounds
+      zones
     end
 
-    def find_spots(bounds)
-      spots = bounds.map do |lat_min, lat_max, lon_min, lon_max|
-        Spot.all.select do |spot|
-          within_lat = spot[:lat].to_f >= lat_min && spot[:lat].to_f <= lat_max
-          within_lon = spot[:lon].to_f >= lon_min && spot[:lon].to_f <= lon_max
+    def find_spots(zones)
+      all_spots = Spot.in_area(*area_containing_zones(zones))
+
+      spots = zones.map do |lat_min, lat_max, lon_min, lon_max|
+        all_spots.select do |spot|
+          within_lat = spot["lat"] >= lat_min && spot["lat"] <= lat_max
+          within_lon = spot["lon"] >= lon_min && spot["lon"] <= lon_max
 
           within_lat && within_lon
         end
       end
 
-      spots.flatten.uniq { |spot| spot[:id] }
+      spots.flatten.uniq { |spot| spot["hw_id"] }
+    end
+
+    def area_containing_zones(zones)
+      area_lat_min = zones.map { |z| z[0] }.min
+      area_lat_max = zones.map { |z| z[1] }.max
+      area_lon_min = zones.map { |z| z[2] }.min
+      area_lon_max = zones.map { |z| z[3] }.max
+
+      [area_lat_min, area_lat_max, area_lon_min, area_lon_max]
     end
 
     def build_kml(spots)
