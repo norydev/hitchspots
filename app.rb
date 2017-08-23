@@ -8,6 +8,16 @@ require "./lib/hitchspots"
 
 set :public_folder, File.dirname(__FILE__) + '/public'
 
+configure :development do
+  db = Mongo::Client.new(["127.0.0.1:27017"], database: "hitchspots")
+  set :mongo_db, db[:spots]
+end
+
+configure :production do
+  db = Mongo::Client.new(ENV["MONGODB_URI"])
+  set :mongo_db, db[:spots]
+end
+
 get "/" do
   erb(:home)
 end
