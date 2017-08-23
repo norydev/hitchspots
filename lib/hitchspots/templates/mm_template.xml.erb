@@ -45,8 +45,8 @@ end
   <Placemark>
     <name><%= "Spot #{i}" %></name>
     <TimeStamp><when><%= time %></when></TimeStamp>
-    <styleUrl><%= color(spot[:rating]) %></styleUrl>
-    <Point><coordinates><%= spot[:lon] %>,<%= spot[:lat] %></coordinates></Point>
+    <styleUrl><%= color(spot["rating"]) %></styleUrl>
+    <Point><coordinates><%= spot["lon"] %>,<%= spot["lat"] %></coordinates></Point>
     <ExtendedData xmlns:mwm="http://mapswith.me">
       <mwm:scale>16</mwm:scale>
     </ExtendedData>
