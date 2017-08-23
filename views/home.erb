@@ -27,8 +27,8 @@
       <% if @error %>
         <% if @error[:not_found] %>
           <p class="text-error"><%= @error[:not_found] %></p>
-        <% elsif @error[:changed] %>
-          <p class="text-error">Sorry, an error occured on our side, please try again later</p>
+        <% else %>
+          <p class="text-error">Sorry, our service is unavailable at the moment, please try again later</p>
         <% end %>
       <% end %>
     </div>

@@ -23,8 +23,8 @@ get "/trip" do
   rescue Hitchspots::NotFound => e
     @error = { not_found: e.message }
     erb(:home)
-  rescue Hitchspots::ApiChanged => e
-    @error = { changed: e.message }
+  rescue Hitchspots::Error => e
+    @error = { external: true }
     erb(:home)
   end
 end

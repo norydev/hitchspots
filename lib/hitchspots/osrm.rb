@@ -25,6 +25,8 @@ module Hitchspots
 
       res = Net::HTTP.get_response(uri)
 
+      raise ApiError, "OSRM unavailable" if res.code != "200"
+
       JSON.parse(res.body, symbolize_names: true)
     end
   end
