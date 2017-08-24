@@ -3,6 +3,7 @@ GEM
   specs:
     bson (4.2.2)
     bson_ext (1.5.1)
+    dotenv (2.2.1)
     mongo (2.4.3)
       bson (>= 4.2.1, < 5.0.0)
     mustermann (1.0.0)
@@ -23,6 +24,7 @@ PLATFORMS
 
 DEPENDENCIES
   bson_ext
+  dotenv
   mongo
   puma
   rake

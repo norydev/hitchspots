@@ -13,7 +13,7 @@ module Hitchspots
     end
 
     def spots(format: nil)
-      coords = Coordinate.for_trip(from, to)
+      coords = Coordinate.for_trip(from, to, api: :mapbox)
       bounds = areas(coords)
       spots  = find_spots(bounds)
 
