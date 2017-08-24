@@ -9,3 +9,7 @@ gem 'mongo'
 gem 'bson_ext'
 
 gem 'rake'
+
+group :development do
+  gem 'dotenv'
+end

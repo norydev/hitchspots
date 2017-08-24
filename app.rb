@@ -9,6 +9,8 @@ require "./lib/hitchspots"
 set :public_folder, File.dirname(__FILE__) + '/public'
 
 configure :development do
+  Dotenv.load
+
   db = Mongo::Client.new(["127.0.0.1:27017"], database: "hitchspots")
   set :mongo_db, db[:spots]
   set :show_exceptions, false
