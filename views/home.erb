@@ -25,11 +25,7 @@
         </form>
       </div>
       <% if @error %>
-        <% if @error[:not_found] %>
-          <p class="text-error"><%= @error[:not_found] %></p>
-        <% else %>
-          <p class="text-error">Sorry, our service is unavailable at the moment, please try again later</p>
-        <% end %>
+        <p class="text-error"><%= @error[:message] %></p>
       <% end %>
     </div>
     <footer class="footer">
