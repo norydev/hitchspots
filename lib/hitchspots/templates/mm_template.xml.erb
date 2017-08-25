@@ -1,10 +1,20 @@
 <%
 def color(rating)
   case rating
-  when "0", "5" then "#placemark-red"
-  when "4"      then "#placemark-orange"
+  when "1", "2" then "#placemark-green"
   when "3"      then "#placemark-yellow"
-  else "#placemark-green"
+  when "4"      then "#placemark-orange"
+  else               "#placemark-red"
+  end
+end
+def hitchability(rating)
+  case rating
+  when "1" then "Very Good"
+  when "2" then "Good"
+  when "3" then "Medium"
+  when "4" then "Bad"
+  when "5" then "Very Bad"
+  else          "Unknown"
   end
 end
 %>
@@ -43,7 +53,10 @@ end
   <visibility>1</visibility>
   <% spots.each_with_index do |spot, i| %>
   <Placemark>
-    <name><%= "Spot #{i}" %></name>
+    <name><%= spot.fetch("encoded_name", nil) || "Spot #{spot['hw_id']}" %></name>
+    <description>Hitchability: <%= hitchability(spot["rating"]) %><% if spot.fetch("encoded_desc", nil) %>
+
+<%= spot["encoded_desc"] %><% end %></description>
     <TimeStamp><when><%= time %></when></TimeStamp>
     <styleUrl><%= color(spot["rating"]) %></styleUrl>
     <Point><coordinates><%= spot["lon"] %>,<%= spot["lat"] %></coordinates></Point>

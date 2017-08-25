@@ -35,7 +35,7 @@ module Hitchspots
 
     def save(db: Sinatra::Application.settings.mongo_db)
       if db.find(hw_id: id).to_a.empty?
-        db.insert_one info
+        db.insert_one fix_encoding(info)
       else
         update(db: db)
       end
@@ -50,6 +50,41 @@ module Hitchspots
     def destroy(db: Sinatra::Application.settings.mongo_db)
       db.find(hw_id: id).find_one_and_delete
       self
+    end
+
+    private
+
+    # Fix encoding as it does not seem to work on the fly. Keep original API
+    # data intact, push new encoded strings in new params
+    #
+    # This method should only be called once, as #encode and #force_encoding
+    # are not idempotent.
+    def fix_encoding(params)
+      params.tap do |params|
+        locality = params.fetch(:location, {}).fetch(:locality, nil)
+
+        if locality
+          begin
+            new_locality = locality.encode("Windows-1252").force_encoding("utf-8")
+            params[:encoded_name] = new_locality
+          rescue Encoding::UndefinedConversionError
+            # do nothing, ignore encoding correction
+          end
+        end
+
+        desc = params.fetch(:description, {})
+                     .fetch(:en_UK, {})
+                     .fetch(:description, nil)
+
+        if desc
+          begin
+            new_desc = desc.encode("Windows-1252").force_encoding("utf-8")
+            params[:encoded_desc] = new_desc
+          rescue Encoding::UndefinedConversionError
+            # do nothing, ignore encoding correction
+          end
+        end
+      end
     end
   end
 end
