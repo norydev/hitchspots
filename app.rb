@@ -26,11 +26,19 @@ get "/" do
 end
 
 get "/trip" do
-  trip = Hitchspots::Trip.new(from: params[:from], to: params[:to])
+  trip = Hitchspots::Trip.new(
+    from: Hitchspots::Place.new(name: params[:from],
+                                lat:  params[:from_lat],
+                                lon:  params[:from_lon]),
+    to:   Hitchspots::Place.new(name: params[:to],
+                                lat:  params[:to_lat],
+                                lon:  params[:to_lon])
+  )
+
   maps_me_kml = trip.spots(format: :kml)
 
   content_type 'text/plain'
-  attachment file_name(params[:from], params[:to])
+  attachment trip.file_name(format: :kml)
   maps_me_kml
 end
 
@@ -43,8 +51,4 @@ error do
   @error = { message: "Sorry, our service is unavailable at the moment, "\
                       "please try again later" }
   erb(:home)
-end
-
-def file_name(from, to)
-  "#{from.downcase.gsub(/[^a-z]/, '-')}-#{to.downcase.gsub(/[^a-z]/, '-')}.kml"
 end

@@ -7,6 +7,8 @@ module Hitchspots
   class Trip
     attr_reader :from, :to
 
+    # @param [Place] from Place object, origin of Trip
+    # @param [Place] to   Place object, destination of Trip
     def initialize(from:, to:)
       @from = from
       @to   = to
@@ -22,6 +24,12 @@ module Hitchspots
       when :kml  then build_kml(spots)
       else            spots
       end
+    end
+
+    # Example: paris-berlin.kml
+    def file_name(format: :txt)
+      "#{from.short_name.downcase.gsub(/[^a-z]/, '_')}-"\
+      "#{to.short_name.downcase.gsub(/[^a-z]/, '_')}.#{format}"
     end
 
     private
@@ -67,7 +75,7 @@ module Hitchspots
     end
 
     def build_kml(spots)
-      title = "#{from} - #{to}"
+      title = "#{from.short_name} - #{to.short_name}"
       spots = spots
       time  = Time.now.utc.iso8601
       ERB.new(File.read("#{__dir__}/templates/mm_template.xml.erb"), 0, ">")

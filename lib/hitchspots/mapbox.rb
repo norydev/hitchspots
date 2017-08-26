@@ -10,7 +10,7 @@ module Hitchspots
     # doc: https://www.mapbox.com/api-documentation/#retrieve-directions
     #
     # @param [Hash] start  Coordidates hash like { lat: 1.23455, lon: 9.87654 }
-    # @param [Hash] finist Coordidates hash like { lat: 1.23455, lon: 9.87654 }
+    # @param [Hash] finish Coordidates hash like { lat: 1.23455, lon: 9.87654 }
     #
     # @return [Hash] A Trip object from Mapbox
     def self.trip(start, finish)
