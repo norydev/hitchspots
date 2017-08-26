@@ -9,6 +9,7 @@ module Hitchspots
     def self.find_by_place(place_name)
       place = OpenStreetMap.geolocate(place_name)
 
+      # TODO: Not found should not be an exception
       raise NotFound, "#{place_name} not found" if place.nil?
 
       { lat: place[:lat].to_f, lon: place[:lon].to_f }
