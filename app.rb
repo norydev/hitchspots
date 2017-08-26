@@ -18,6 +18,13 @@ configure do
   end
 end
 
+configure :test do
+  Mongo::Logger.logger.level = ::Logger::FATAL
+
+  db = Mongo::Client.new(["127.0.0.1:27017"], database: "hitchspots-test")
+  set :mongo_db, db[:spots]
+end
+
 configure :development do
   Dotenv.load
 
