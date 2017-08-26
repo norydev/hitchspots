@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    ast (2.3.0)
     bson (4.2.2)
     bson_ext (1.5.1)
     dotenv (2.2.1)
@@ -8,19 +9,34 @@ GEM
       bson (>= 4.2.1, < 5.0.0)
     multi_json (1.12.1)
     mustermann (1.0.0)
+    parallel (1.12.0)
+    parser (2.4.0.0)
+      ast (~> 2.2)
+    powerpack (0.1.1)
     puma (3.10.0)
     rack (2.0.3)
     rack-protection (2.0.0)
       rack
+    rainbow (2.2.2)
+      rake
     rake (12.0.0)
     rollbar (2.15.1)
       multi_json
+    rubocop (0.49.1)
+      parallel (~> 1.10)
+      parser (>= 2.3.3.1, < 3.0)
+      powerpack (~> 0.1)
+      rainbow (>= 1.99.1, < 3.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (~> 1.0, >= 1.0.1)
+    ruby-progressbar (1.8.1)
     sinatra (2.0.0)
       mustermann (~> 1.0)
       rack (~> 2.0)
       rack-protection (= 2.0.0)
       tilt (~> 2.0)
     tilt (2.0.8)
+    unicode-display_width (1.3.0)
 
 PLATFORMS
   ruby
@@ -32,6 +48,7 @@ DEPENDENCIES
   puma
   rake
   rollbar
+  rubocop
   sinatra
 
 RUBY VERSION

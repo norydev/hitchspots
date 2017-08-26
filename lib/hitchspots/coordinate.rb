@@ -30,26 +30,34 @@ module Hitchspots
       end
     end
 
+    # Rubocop bug: https://github.com/bbatsov/rubocop/issues/4431
+    # rubocop:disable Layout/MultilineMethodCallIndentation
     private_class_method def self.osrm_coordinates(start_geo, finish_geo)
       trip = Osrm.trip(start_geo, finish_geo)
 
       # TODO: Not found should not be an exception
       raise NotFound, "No route found" if trip[:code] == "NoRoute"
 
-      trip.fetch(:trips, [{}]).first
+      trip.fetch(:trips, [{}])
+          .first
           .fetch(:geometry, {})
           .fetch(:coordinates, nil) || raise(ApiChanged, "Osrm API has changed")
     end
+    # rubocop:enable Layout/MultilineMethodCallIndentation
 
+    # Rubocop bug: https://github.com/bbatsov/rubocop/issues/4431
+    # rubocop:disable Layout/MultilineMethodCallIndentation
     private_class_method def self.mapbox_coordinates(start_geo, finish_geo)
       trip = Mapbox.trip(start_geo, finish_geo)
 
       # TODO: Not found should not be an exception
       raise NotFound, "No route found" if trip[:code] == "NoRoute"
 
-      trip.fetch(:routes, [{}]).first
+      trip.fetch(:routes, [{}])
+          .first
           .fetch(:geometry, {})
           .fetch(:coordinates, nil) || raise(ApiChanged, "Mapbox API has changed")
     end
+    # rubocop:enable Layout/MultilineMethodCallIndentation
   end
 end

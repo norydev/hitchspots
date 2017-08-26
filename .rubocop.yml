@@ -1,0 +1,18 @@
+AllCops:
+  TargetRubyVersion: 2.4
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/NumericPredicate:
+  Enabled: false
+Metrics/LineLength:
+  Max: 90
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: aligned
+Lint/HandleExceptions:
+  Enabled: false
+Metrics/AbcSize:
+  Max: 16

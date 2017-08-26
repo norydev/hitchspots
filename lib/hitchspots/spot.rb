@@ -29,8 +29,8 @@ module Hitchspots
     # @return [Array] A collection of detailed spots
     def self.in_area(lat_min, lat_max, lon_min, lon_max,
                      db: Sinatra::Application.settings.mongo_db)
-      db.find({ lat: { "$gte" => lat_min, "$lte" => lat_max },
-                lon: { "$gte" => lon_min, "$lte" => lon_max } }).to_a
+      db.find(lat: { "$gte" => lat_min, "$lte" => lat_max },
+              lon: { "$gte" => lon_min, "$lte" => lon_max }).to_a
     end
 
     def save(db: Sinatra::Application.settings.mongo_db)
@@ -59,32 +59,34 @@ module Hitchspots
     #
     # This method should only be called once, as #encode and #force_encoding
     # are not idempotent.
+    # rubocop:disable Metrics/MethodLength
     def fix_encoding(params)
-      params.tap do |params|
-        locality = params.fetch(:location, {}).fetch(:locality, nil)
+      params.tap do |par|
+        locality = par.fetch(:location, {}).fetch(:locality, nil)
 
         if locality
           begin
             new_locality = locality.encode("Windows-1252").force_encoding("utf-8")
-            params[:encoded_name] = new_locality
+            par[:encoded_name] = new_locality
           rescue Encoding::UndefinedConversionError
             # do nothing, ignore encoding correction
           end
         end
 
-        desc = params.fetch(:description, {})
-                     .fetch(:en_UK, {})
-                     .fetch(:description, nil)
+        desc = par.fetch(:description, {})
+                  .fetch(:en_UK, {})
+                  .fetch(:description, nil)
 
         if desc
           begin
             new_desc = desc.encode("Windows-1252").force_encoding("utf-8")
-            params[:encoded_desc] = new_desc
+            par[:encoded_desc] = new_desc
           rescue Encoding::UndefinedConversionError
             # do nothing, ignore encoding correction
           end
         end
       end
     end
+    # rubocop:enable Metrics/MethodLength
   end
 end

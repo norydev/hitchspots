@@ -1,15 +1,13 @@
-# frozen_string_literal: true
-
 require "bundler/setup"
 ENV["RACK_ENV"] ||= "development"
 Bundler.require(:default, ENV["RACK_ENV"].to_sym)
 
-require 'rollbar/middleware/sinatra'
+require "rollbar/middleware/sinatra"
 use Rollbar::Middleware::Sinatra
 
 require "./lib/hitchspots"
 
-set :public_folder, File.dirname(__FILE__) + '/public'
+set :public_folder, File.dirname(__FILE__) + "/public"
 
 configure do
   Rollbar.configure do |config|
@@ -49,7 +47,7 @@ get "/trip" do
 
   maps_me_kml = trip.spots(format: :kml)
 
-  content_type 'text/plain'
+  content_type "text/plain"
   attachment trip.file_name(format: :kml)
   maps_me_kml
 end

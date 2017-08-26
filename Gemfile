@@ -1,17 +1,19 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-ruby '2.4.1'
+ruby "2.4.1"
 
-gem 'puma'
-gem 'sinatra'
+gem "puma"
+gem "rake"
+gem "sinatra"
 
-gem 'mongo'
-gem 'bson_ext'
+# Mongo DB
+gem "bson_ext"
+gem "mongo"
 
-gem 'rake'
-
-gem 'rollbar'
+# Tools
+gem "rollbar"
+gem "rubocop"
 
 group :development do
-  gem 'dotenv'
+  gem "dotenv"
 end
