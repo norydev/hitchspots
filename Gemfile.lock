@@ -6,12 +6,15 @@ GEM
     dotenv (2.2.1)
     mongo (2.4.3)
       bson (>= 4.2.1, < 5.0.0)
+    multi_json (1.12.1)
     mustermann (1.0.0)
     puma (3.10.0)
     rack (2.0.3)
     rack-protection (2.0.0)
       rack
     rake (12.0.0)
+    rollbar (2.15.1)
+      multi_json
     sinatra (2.0.0)
       mustermann (~> 1.0)
       rack (~> 2.0)
@@ -28,6 +31,7 @@ DEPENDENCIES
   mongo
   puma
   rake
+  rollbar
   sinatra
 
 RUBY VERSION

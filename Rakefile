@@ -1,4 +1,13 @@
+require "rollbar/rake_tasks"
+
 require "./app"
+
+# For Rollbar:
+task :environment do
+  Rollbar.configure do |config |
+    config.access_token = ENV["ROLLBAR_ACCESS_TOKEN"]
+  end
+end
 
 namespace :hitchwiki do
   desc "Harvest all spots on Hitchwiki"

@@ -10,6 +10,8 @@ gem 'bson_ext'
 
 gem 'rake'
 
+gem 'rollbar'
+
 group :development do
   gem 'dotenv'
 end

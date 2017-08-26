@@ -4,9 +4,21 @@ require "bundler/setup"
 ENV["RACK_ENV"] ||= "development"
 Bundler.require(:default, ENV["RACK_ENV"].to_sym)
 
+require 'rollbar/middleware/sinatra'
+use Rollbar::Middleware::Sinatra
+
 require "./lib/hitchspots"
 
 set :public_folder, File.dirname(__FILE__) + '/public'
+
+configure do
+  Rollbar.configure do |config|
+    config.access_token = ENV["ROLLBAR_ACCESS_TOKEN"]
+    config.environment = Sinatra::Base.environment
+    config.framework = "Sinatra: #{Sinatra::VERSION}"
+    config.root = Dir.pwd
+  end
+end
 
 configure :development do
   Dotenv.load
