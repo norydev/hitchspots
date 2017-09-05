@@ -5,6 +5,11 @@ html, body {
   height: 100%;
 }
 
+.bg {
+  background: url("../img/bg.jpg") repeat center;
+  background-size: 150px 150px;
+}
+
 .home {
   text-align: center;
   padding: 50px 10px 0;
@@ -33,16 +38,25 @@ a, a:hover, a:focus {
 }
 
 .text-error {
-  color: #d9534f;
+  color: #ffffff;
+  background-color: #d9534f;
+  padding: 10px;
+  margin-top: 50px;
+  width: 100%;
+  border-radius: 2px;
 }
 
 footer.footer {
   width: 100%;
-  max-width: 620px;
+  max-width: 540px;
   margin: 0 auto;
 
   padding: 0 10px;
   height: 55px;
+}
+
+.footer hr {
+  border-top-color: rgba(0, 0, 0, 0.2);
 }
 
 .left {

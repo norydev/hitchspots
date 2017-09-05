@@ -9,8 +9,8 @@ module Hitchspots
 
     def initialize(name = nil, lat: nil, lon: nil)
       @name = name
-      @lat = lat
-      @lon = lon
+      @lat = lat == "" ? nil : lat # replace empty strings by nil
+      @lon = lon == "" ? nil : lon # replace empty strings by nil
     end
 
     def short_name
