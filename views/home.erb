@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/css/home.css">
   </head>
   <body>
-    <div class="home">
+    <div class="home bg">
       <h1>Get <a href="http://hitchwiki.org/maps/">Hitchwiki</a> spots into <a href="https://maps.me/en/home">MAPS.me</a></h1>
       <div class="form-wrapper">
         <form method="GET" action="/trip">
@@ -28,10 +28,11 @@
           </div>
           <button type="submit" class="btn btn-success" title="Send this file to your phone and import it into MAPS.me">Generate MAPS.me Bookmarks</button>
         </form>
+
+        <% if @error %>
+          <p class="text-error"><%= @error[:message] %></p>
+        <% end %>
       </div>
-      <% if @error %>
-        <p class="text-error"><%= @error[:message] %></p>
-      <% end %>
     </div>
     <footer class="footer">
       <hr>
