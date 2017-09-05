@@ -16,15 +16,15 @@
         <form method="GET" action="/trip">
           <div class="form-group">
             <label for="from">From</label>
-            <input id="from" type="text" class="form-control" name="from" placeholder="Geneva" required="true" autocomplete="off">
-            <input id="from_lat" type="hidden" name="from_lat">
-            <input id="from_lon" type="hidden" name="from_lon">
+            <input id="from" type="text" class="form-control" name="from" placeholder="Geneva" required="true" autocomplete="off" value="<%= @trip.from.name %>">
+            <input id="from_lat" type="hidden" name="from_lat" value="<%= @trip.from.lat %>">
+            <input id="from_lon" type="hidden" name="from_lon" value="<%= @trip.from.lon %>">
           </div>
           <div class="form-group">
             <label for="to">To</label>
-            <input id="to" type="text" class="form-control" name="to" placeholder="Zürich" required="true" autocomplete="off">
-            <input id="to_lat" type="hidden" name="to_lat">
-            <input id="to_lon" type="hidden" name="to_lon">
+            <input id="to" type="text" class="form-control" name="to" placeholder="Zürich" required="true" autocomplete="off" value="<%= @trip.to.name %>">
+            <input id="to_lat" type="hidden" name="to_lat" value="<%= @trip.to.lat %>">
+            <input id="to_lon" type="hidden" name="to_lon" value="<%= @trip.to.lon %>">
           </div>
           <button type="submit" class="btn btn-success" title="Send this file to your phone and import it into MAPS.me">Generate MAPS.me Bookmarks</button>
         </form>

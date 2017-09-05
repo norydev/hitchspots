@@ -39,6 +39,9 @@ configure :production do
 end
 
 get "/" do
+  @trip = Hitchspots::Trip.new(from: Hitchspots::Place.new,
+                               to:   Hitchspots::Place.new)
+
   erb(:home)
 end
 
@@ -61,11 +64,27 @@ end
 
 error Hitchspots::NotFound do
   @error = { message: env["sinatra.error"].message }
+  @trip = Hitchspots::Trip.new(
+    from: Hitchspots::Place.new(params[:from],
+                                lat: params[:from_lat],
+                                lon: params[:from_lon]),
+    to:   Hitchspots::Place.new(params[:to],
+                                lat: params[:to_lat],
+                                lon: params[:to_lon])
+  )
   erb(:home)
 end
 
 error do
   @error = { message: "Sorry, our service is unavailable at the moment, "\
                       "please try again later" }
+  @trip = Hitchspots::Trip.new(
+    from: Hitchspots::Place.new(params[:from],
+                                lat: params[:from_lat],
+                                lon: params[:from_lon]),
+    to:   Hitchspots::Place.new(params[:to],
+                                lat: params[:to_lat],
+                                lon: params[:to_lon])
+  )
   erb(:home)
 end
