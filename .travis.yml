@@ -5,6 +5,8 @@ cache: bundler
 rvm:
   - 2.4.1
 
+services: mongodb
+
 script:
   - bundle exec rake
 
