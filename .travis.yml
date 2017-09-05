@@ -1,0 +1,22 @@
+language: ruby
+
+cache: bundler
+
+rvm:
+  - 2.4.1
+
+services: mongodb
+
+script:
+  - bundle exec rake
+
+notifications:
+  email: false
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: uPoMstRJXjdGy3Mm7Mnh+PcP+ZLjl8WYN2ufQ28lC4tGu2GIW7lL5hXTbgDOoG0yCQQDH9E4AvvWPZRqWG61zDA6Phdymf9eBCGV3tA+6N4JY16BjCtjaqnL+WRCmPG+hbEU9xXX5AW6btZHx7zR7C+nyxyrZEiXkIlw5Qk7uRNP9E+gft7zWHvyrDdpF/hH1IqiS6cPGOLCqu5218vemh8rhnNT/lU/DZZ537WJegXKIXwA4X/XBGbMlDKgxZ3ZpjqfFdz8PskAPSwcGkAv+VwnRfPW+D7o51daO9LRfcTaZE0hgTWR/kAZH6zY9XpgAy3Xlztmb4vcAbqQoyt0jgtZKV5xs+wxyatKrXccnoagxM4UFsKxR6VDDe8FcJjWEncDfT+unKcv60o4O9VJ61nIkhIQ151y4CCCpO9fxBmGYDP/GtGu07jNVP8upm1cMXsUPtniDziqSVYe+Ndp9o/u3fbVvnVjWz2uwjPP2Ava4oL3FZQkH3DCuVZYobuf2k1PgXT5tlukQz1ZgO9+k4TlIM6tWGegKPKCMUK15zQTGGsGNwR1i4mTzbyfJc5xz0rRhkY4Sklplhdq/Edu700fDhWqkb1H18u1YCflBJ0D17wjisMGhOxFLM+vx7picJZbAUcizhht1XglJxg2seAQXlE6OSlj/kGGfLaQXzQ=
+  app: hitchspots
+  on:
+    repo: NoryDev/hitchspots
