@@ -8,8 +8,12 @@ Style/Documentation:
   Enabled: false
 Style/NumericPredicate:
   Enabled: false
+Style/SymbolArray:
+  Enabled: false
+Style/WordArray:
+  Enabled: false
 Metrics/LineLength:
-  Max: 90
+  Max: 100
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: aligned
 Lint/HandleExceptions:

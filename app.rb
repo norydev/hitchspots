@@ -18,6 +18,13 @@ configure do
   end
 end
 
+configure :test do
+  Mongo::Logger.logger.level = ::Logger::FATAL
+
+  db = Mongo::Client.new(["127.0.0.1:27017"], database: "hitchspots-test")
+  set :mongo_db, db[:spots]
+end
+
 configure :development do
   Dotenv.load
 
@@ -37,12 +44,12 @@ end
 
 get "/trip" do
   trip = Hitchspots::Trip.new(
-    from: Hitchspots::Place.new(name: params[:from],
-                                lat:  params[:from_lat],
-                                lon:  params[:from_lon]),
-    to:   Hitchspots::Place.new(name: params[:to],
-                                lat:  params[:to_lat],
-                                lon:  params[:to_lon])
+    from: Hitchspots::Place.new(params[:from],
+                                lat: params[:from_lat],
+                                lon: params[:from_lon]),
+    to:   Hitchspots::Place.new(params[:to],
+                                lat: params[:to_lat],
+                                lon: params[:to_lon])
   )
 
   maps_me_kml = trip.spots(format: :kml)

@@ -4,8 +4,8 @@ module Hitchspots
     # Using OSRM API, fetch coordinates for a trip having a start place and
     # finish place
     #
-    # @param [String] start_location A city, village, place to get geoloc for
-    # @param [String] finish_location A city, village, place to get geoloc for
+    # @param [Place] start_location A Place object to get geoloc for
+    # @param [Place] finish_location A Place object to get geoloc for
     #
     # @return [Array] Array of coordinates: [[lon1, lat1], [lon2, lat2], ...]
     def self.for_trip(start_location, finish_location, api: :osrm)

@@ -17,3 +17,10 @@ gem "rubocop"
 group :development do
   gem "dotenv"
 end
+
+group :test do
+  gem "minitest", "~> 5.0"
+  gem "minitest-color"
+  gem "rack-test"
+  gem "webmock"
+end
