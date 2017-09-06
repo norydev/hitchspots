@@ -57,7 +57,7 @@ get "/trip" do
 
   maps_me_kml = trip.spots(format: :kml)
 
-  content_type "text/plain"
+  content_type "application/vnd.google-earth.kml+xml"
   attachment trip.file_name(format: :kml)
   maps_me_kml
 end
