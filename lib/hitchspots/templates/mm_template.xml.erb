@@ -53,10 +53,10 @@ end
   <visibility>1</visibility>
   <% spots.each_with_index do |spot, i| %>
   <Placemark>
-    <name><%= spot.fetch("encoded_name", nil) || "Spot #{spot['hw_id']}" %></name>
-    <description>Hitchability: <%= hitchability(spot["rating"]) %><% if spot.fetch("encoded_desc", nil) %>
+    <name><%= spot.fetch("location", {}).fetch("locality", nil) || "Spot #{spot['id']}" %></name>
+    <description>Hitchability: <%= hitchability(spot["rating"]) %><% if spot.fetch("description", {}).fetch("en_UK", {}).fetch("description", nil) %>
 
-<%= spot["encoded_desc"] %><% end %></description>
+<%= spot.fetch("description", {}).fetch("en_UK", {}).fetch("description", nil) %><% end %></description>
     <TimeStamp><when><%= time %></when></TimeStamp>
     <styleUrl><%= color(spot["rating"]) %></styleUrl>
     <Point><coordinates><%= spot["lon"] %>,<%= spot["lat"] %></coordinates></Point>

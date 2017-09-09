@@ -62,7 +62,7 @@ module Hitchspots
         end
       end
 
-      spots.flatten.uniq { |spot| spot["hw_id"] }
+      spots.flatten.uniq { |spot| spot["id"] }
     end
 
     def area_containing_zones(zones)
