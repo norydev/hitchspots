@@ -54,9 +54,16 @@ end
   <% spots.each_with_index do |spot, i| %>
   <Placemark>
     <name><%= spot.fetch("location", {}).fetch("locality", nil) || "Spot #{spot['id']}" %></name>
-    <description>Hitchability: <%= hitchability(spot["rating"]) %><% if spot.fetch("description", {}).fetch("en_UK", {}).fetch("description", nil) %>
-
-<%= spot.fetch("description", {}).fetch("en_UK", {}).fetch("description", nil) %><% end %></description>
+    <description>&lt;strong&gt;Hitchability:&lt;/strong&gt; <%= hitchability(spot["rating"]) %>&lt;br&gt;
+&lt;strong&gt;Average Waiting time:&lt;/strong&gt; <%= Hash[spot["waiting_stats"]].fetch("avg_textual", "Unknown") %>
+<% if spot.fetch("description", {}).fetch("en_UK", {}).fetch("description", nil) %>&lt;hr&gt;
+&lt;strong&gt;Description:&lt;/strong&gt;&lt;br&gt;
+“<%= spot.fetch("description", {}).fetch("en_UK", {}).fetch("description", nil)&.gsub("\n", "&lt;br&gt;") %>”&lt;br&gt;
+&lt;em&gt;―<%= spot.fetch("user", {}).fetch("name", "Anonymous") %><% if spot.fetch("datetime", nil) %>, <%= Date.parse(spot.fetch("datetime", nil)).strftime("%d %b %Y") %><% end %>&lt;/em&gt;<% end %>
+<% if spot.fetch("comments", []).any? %>&lt;hr&gt;
+&lt;strong&gt;Comments:&lt;/strong&gt;&lt;br&gt;
+<% spot.fetch("comments", []).each do |comment| %>“<%= comment.fetch("comment", nil)&.gsub("\n", "&lt;br&gt;") %>”&lt;br&gt;
+&lt;em&gt;―<%= comment.fetch("user", {}).fetch("name", "Anonymous") %><% if comment.fetch("datetime", nil) %>, <%= Date.parse(comment.fetch("datetime", nil)).strftime("%d %b %Y") %><% end %>&lt;/em&gt;&lt;br&gt;&lt;br&gt;<% end %><% end %></description>
     <TimeStamp><when><%= time %></when></TimeStamp>
     <styleUrl><%= color(spot["rating"]) %></styleUrl>
     <Point><coordinates><%= spot["lon"] %>,<%= spot["lat"] %></coordinates></Point>
