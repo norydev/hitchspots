@@ -1,7 +1,8 @@
 require "rake/testtask"
 require "rollbar/rake_tasks"
-
 require "./app"
+
+Dir.glob("./lib/tasks/*.rake").each { |r| import r }
 
 Rake::TestTask.new do |t|
   t.pattern = "test/*_test.rb"
@@ -29,14 +30,14 @@ namespace :hitchwiki do
 
     spots.each do |spot|
       detailed_spot = Hitchspots::Hitchwiki.spot(spot[:id])
-      hitchspot = Hitchspots::Spot.new(detailed_spot)
-      hitchspot.save
+      hitchspot = DB::Spot.new(detailed_spot)
+      hitchspot.insert
     end
   end
 
   desc "Update spots from Hitchwiki"
   task :refresh do
-    db_ids = Hitchspots::Spot.all.map { |s| s["hw_id"] }
+    db_ids = DB::Spot.all.map { |s| s.fetch("raw", {}).fetch("id", nil) }.compact
 
     hitchwiki_spots = Hitchspots::Hitchwiki.spots_by_area(-90, 90, -180, 180)
     hitchwiki_ids = hitchwiki_spots.map { |s| s[:id] }
@@ -44,13 +45,13 @@ namespace :hitchwiki do
     # add spots by missing ids
     (hitchwiki_ids - db_ids).each do |hw_id|
       detailed_spot = Hitchspots::Hitchwiki.spot(hw_id)
-      hitchspot = Hitchspots::Spot.new(detailed_spot)
-      hitchspot.save
+      hitchspot = DB::Spot.new(detailed_spot)
+      hitchspot.insert
     end
 
     # delete spots by removed ids
     (db_ids - hitchwiki_ids).each do |hw_id|
-      hitchspot = Hitchspots::Spot.new(id: hw_id)
+      hitchspot = DB::Spot.new(id: hw_id)
       hitchspot.destroy
     end
   end

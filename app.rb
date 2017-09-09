@@ -38,6 +38,9 @@ configure :production do
   set :mongo_db, db[:spots]
 end
 
+# Need DB configuration before requiring DB class
+require "./lib/db/spot"
+
 get "/" do
   @trip = Hitchspots::Trip.new(from: Hitchspots::Place.new,
                                to:   Hitchspots::Place.new)
