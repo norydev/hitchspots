@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/BlockLength
 namespace :hitchwiki do
   desc "Harvest all spots on Hitchwiki"
   task :harvest do
@@ -33,14 +34,15 @@ namespace :hitchwiki do
     # update spots whose rating have changed
     # [[id, rating], [id, rating]]
     db_ratings = DB::Spot::Collection
-                   .find.projection( "raw.rating" => 1, "raw.id" => 1, _id: 0 )
-                   .to_a.map { |s| [ s["raw"]["id"], s["raw"]["rating"] ] }
+                 .find.projection("raw.rating" => 1, "raw.id" => 1, _id: 0)
+                 .to_a.map { |s| [s["raw"]["id"], s["raw"]["rating"]] }
     hw_ratings = hitchwiki_spots.map { |s| [s[:id], s[:rating]] }
 
-    (hw_ratings - db_ratings).each do |id, rating|
+    (hw_ratings - db_ratings).each do |id, _rating|
       detailed_spot = Hitchspots::Hitchwiki.spot(id)
       hitchspot = DB::Spot.new(detailed_spot)
       hitchspot.save
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

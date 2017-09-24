@@ -26,5 +26,16 @@ module Hitchspots
         "sanitized.lon" => { "$gte" => lon_min, "$lte" => lon_max }
       ).to_a.map { |spot| spot.fetch("sanitized", nil) }.compact
     end
+
+    def self.find(ids)
+      if ids.is_a? Array
+        ::DB::Spot::Collection.find(
+          "sanitized.id" => { "$in" => ids }
+        ).to_a.map { |spot| spot.fetch("sanitized", nil) }.compact
+      else
+        ::DB::Spot::Collection.find("sanitized.id" => ids)
+                              .to_a.first.fetch("sanitized", nil)
+      end
+    end
   end
 end

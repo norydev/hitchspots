@@ -44,6 +44,7 @@ require "./lib/db/spot"
 get "/" do
   @trip = Hitchspots::Trip.new(from: Hitchspots::Place.new,
                                to:   Hitchspots::Place.new)
+  @country = Hitchspots::Country.new("AF")
 
   erb(:home)
 end
@@ -65,6 +66,16 @@ get "/trip" do
   maps_me_kml
 end
 
+get "/country" do
+  country = Hitchspots::Country.new(params[:iso_code])
+
+  maps_me_kml = country.spots(format: :kml)
+
+  content_type "application/vnd.google-earth.kml+xml"
+  attachment country.file_name(format: :kml)
+  maps_me_kml
+end
+
 error Hitchspots::NotFound do
   @error = { message: env["sinatra.error"].message }
   @trip = Hitchspots::Trip.new(
@@ -75,6 +86,7 @@ error Hitchspots::NotFound do
                                 lat: params[:to_lat],
                                 lon: params[:to_lon])
   )
+  @country = Hitchspots::Country.new(params[:iso_code] || "AF")
   erb(:home)
 end
 
@@ -89,5 +101,6 @@ error do
                                 lat: params[:to_lat],
                                 lon: params[:to_lon])
   )
+  @country = Hitchspots::Country.new(params[:iso_code] || "AF")
   erb(:home)
 end
