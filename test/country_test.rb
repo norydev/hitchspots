@@ -9,7 +9,7 @@ class CountryTest < Minitest::Test
   end
 
   def test_file_name
-    country = Hitchspots::Country.new("Finland", iso_code: "FI")
+    country = Hitchspots::Country.new("FI")
 
     assert_equal country.file_name, "finland.txt"
   end
@@ -17,7 +17,7 @@ class CountryTest < Minitest::Test
   def test_spot_ids_from_hitchwiki
     correct_ids = ["355", "182", "362", "365", "189", "193", "206", "372", "373", "721"]
 
-    country = Hitchspots::Country.new("Finland", iso_code: "FI")
+    country = Hitchspots::Country.new("FI")
 
     assert_equal country.send(:spot_ids_from_hitchwiki), correct_ids
   end

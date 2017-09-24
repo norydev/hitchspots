@@ -5,13 +5,14 @@ require "time"
 module Hitchspots
   # Hitchhiking trip for which we would like to get the Hitchwiki maps spots
   class Country
+    COUNTRIES = YAML.load_file("./data/countries.yml")
+
     attr_reader :country_name, :iso_code
 
-    # @param [String] country_name Name of country in plain text
-    # @param [String] iso_code   Place object, destination of Trip
-    def initialize(country_name, iso_code:)
-      @country_name = country_name
+    # @param [String] iso_code ISO code for country
+    def initialize(iso_code)
       @iso_code = iso_code
+      @country_name = COUNTRIES.fetch(iso_code)
     end
 
     def spots(format: nil)

@@ -31,10 +31,29 @@ a, a:hover, a:focus {
 
 .form-wrapper {
   width: 100%;
-  max-width: 320px;
+  max-width: 350px;
   margin: 30px auto;
   display: inline-block;
   text-align: left;
+}
+
+.home-form {
+  position: relative;
+  background-color: #ffffff;
+  padding: 15px;
+  border: 1px solid #ddd;
+  min-height: 220px;
+}
+
+.home-form .btn-submit {
+  position: absolute;
+  bottom: 15px;
+}
+
+@media (min-width:768px) {
+  .home-form {
+    border-top: 0;
+  }
 }
 
 .text-error {

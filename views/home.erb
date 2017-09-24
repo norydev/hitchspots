@@ -13,21 +13,45 @@
     <div class="home bg">
       <h1>Get <a href="http://hitchwiki.org/maps/">Hitchwiki</a> spots into <a href="https://maps.me/en/home">MAPS.me</a></h1>
       <div class="form-wrapper">
-        <form method="GET" action="/trip">
-          <div class="form-group">
-            <label for="from">From</label>
-            <input id="from" type="text" class="form-control" name="from" placeholder="Geneva" required="true" autocomplete="off" value="<%= @trip.from.name %>">
-            <input id="from_lat" type="hidden" name="from_lat" value="<%= @trip.from.lat %>">
-            <input id="from_lon" type="hidden" name="from_lon" value="<%= @trip.from.lon %>">
+
+        <ul id="kind-tabs" class="nav nav-tabs nav-justified">
+          <li role="presentation" class="active"><a href="#trip-tab">Trip</a></li>
+          <li role="presentation"><a href="#country-tab">Country</a></li>
+        </ul>
+
+        <div class="tab-content home-form">
+          <div role="tabpanel" class="tab-pane active" id="trip-tab">
+            <form method="GET" action="/trip">
+              <div class="form-group">
+                <label for="from">From</label>
+                <input id="from" type="text" class="form-control" name="from" placeholder="Geneva" required="true" autocomplete="off" value="<%= @trip.from.name %>">
+                <input id="from_lat" type="hidden" name="from_lat" value="<%= @trip.from.lat %>">
+                <input id="from_lon" type="hidden" name="from_lon" value="<%= @trip.from.lon %>">
+              </div>
+              <div class="form-group">
+                <label for="to">To</label>
+                <input id="to" type="text" class="form-control" name="to" placeholder="Zürich" required="true" autocomplete="off" value="<%= @trip.to.name %>">
+                <input id="to_lat" type="hidden" name="to_lat" value="<%= @trip.to.lat %>">
+                <input id="to_lon" type="hidden" name="to_lon" value="<%= @trip.to.lon %>">
+              </div>
+              <button type="submit" class="btn btn-success btn-submit" title="Send this file to your phone and import it into MAPS.me">Generate MAPS.me Bookmarks</button>
+            </form>
           </div>
-          <div class="form-group">
-            <label for="to">To</label>
-            <input id="to" type="text" class="form-control" name="to" placeholder="Zürich" required="true" autocomplete="off" value="<%= @trip.to.name %>">
-            <input id="to_lat" type="hidden" name="to_lat" value="<%= @trip.to.lat %>">
-            <input id="to_lon" type="hidden" name="to_lon" value="<%= @trip.to.lon %>">
+
+          <div role="tabpanel" class="tab-pane" id="country-tab">
+            <form method="GET" action="/country">
+              <div class="form-group">
+                <label for="iso_code">All spots for</label>
+                <select class="form-control" id="iso_code" name="iso_code">
+                  <% ::Hitchspots::Country::COUNTRIES.each do |country| %>
+                    <option value="<%= country.first %>" <%= 'selected="selected"' if country.first == @country.iso_code %>><%= country.last %></option>
+                  <% end %>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-success btn-submit" title="Send this file to your phone and import it into MAPS.me">Generate MAPS.me Bookmarks</button>
+            </form>
           </div>
-          <button type="submit" class="btn btn-success" title="Send this file to your phone and import it into MAPS.me">Generate MAPS.me Bookmarks</button>
-        </form>
+        </div>
 
         <% if @error %>
           <p class="text-error"><%= @error[:message] %></p>
@@ -41,6 +65,7 @@
     </footer>
 
     <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <script src="/js/typeahead.bundle.min.js"></script>
     <script src="/js/typeahead-address-photon.min.js"></script>
     <script src="/js/hitchspots.js"></script>

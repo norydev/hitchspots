@@ -28,4 +28,14 @@ $(document).ready(function() {
       $('#to_lat').val(selectedPlace.geometry.coordinates[1])
     }
   });
+
+  // Bootstrap tabs:
+  $('#kind-tabs a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+  })
+
+  if (window.location.search.substr(1).split("=")[0] === "iso_code"){
+    $('#kind-tabs a[href="#country-tab"]').tab('show')
+  }
 });

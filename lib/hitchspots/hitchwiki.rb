@@ -55,6 +55,7 @@ module Hitchspots
     #
     # @return [Array:Hash] Array of spot hashes, contains
     #         { id: String, lat: String, lon: String, rating: String }
+    # rubocop:disable Metrics/MethodLength
     def self.spots_by_country(country_iso_code)
       uri       = URI(BASE_URL)
       uri.query = URI.encode_www_form(country: country_iso_code,
@@ -65,7 +66,15 @@ module Hitchspots
 
       raise ApiError, "Hitchwiki unavailable" if res.code != "200"
 
-      JSON.parse(res.body, symbolize_names: true)
+      parsed_body = JSON.parse(res.body, symbolize_names: true)
+
+      # TODO: Not found should not be an exception
+      if parsed_body.is_a?(Hash) && parsed_body.fetch(:error_description, nil) == "No results."
+        raise NotFound, "#{Hitchspots::Country::COUNTRIES[country_iso_code]} has no spots"
+      end
+
+      parsed_body
     end
+    # rubocop:enable Metrics/MethodLength
   end
 end

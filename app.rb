@@ -44,6 +44,7 @@ require "./lib/db/spot"
 get "/" do
   @trip = Hitchspots::Trip.new(from: Hitchspots::Place.new,
                                to:   Hitchspots::Place.new)
+  @country = Hitchspots::Country.new("AF")
 
   erb(:home)
 end
@@ -66,7 +67,7 @@ get "/trip" do
 end
 
 get "/country" do
-  country = Hitchspots::Country.new(params[:name], iso_code: params[:iso_code])
+  country = Hitchspots::Country.new(params[:iso_code])
 
   maps_me_kml = country.spots(format: :kml)
 
@@ -85,6 +86,7 @@ error Hitchspots::NotFound do
                                 lat: params[:to_lat],
                                 lon: params[:to_lon])
   )
+  @country = Hitchspots::Country.new(params[:iso_code] || "AF")
   erb(:home)
 end
 
@@ -99,5 +101,6 @@ error do
                                 lat: params[:to_lat],
                                 lon: params[:to_lon])
   )
+  @country = Hitchspots::Country.new(params[:iso_code] || "AF")
   erb(:home)
 end
