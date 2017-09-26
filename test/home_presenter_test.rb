@@ -35,4 +35,16 @@ class HomePresenterTest < Minitest::Test
     assert_equal home.country.iso_code, "CH"
     assert_equal home.country.country_name, "Switzerland"
   end
+
+  def test_empty_error
+    home = HomePresenter.new
+
+    assert_nil home.error
+  end
+
+  def test_error_with_params
+    home = HomePresenter.new(error_msg: "not found")
+
+    assert_equal home.error, message: "not found"
+  end
 end

@@ -49,41 +49,45 @@ get "/" do
 end
 
 get "/trip" do
-  trip = Hitchspots::Trip.new(
-    from: Hitchspots::Place.new(params[:from],
-                                lat: params[:from_lat],
-                                lon: params[:from_lon]),
-    to:   Hitchspots::Place.new(params[:to],
-                                lat: params[:to_lat],
-                                lon: params[:to_lon])
-  )
+  begin
+    trip = Hitchspots::Trip.new(
+      from: Hitchspots::Place.new(params[:from],
+                                  lat: params[:from_lat],
+                                  lon: params[:from_lon]),
+      to:   Hitchspots::Place.new(params[:to],
+                                  lat: params[:to_lat],
+                                  lon: params[:to_lon])
+    )
 
-  maps_me_kml = trip.spots(format: :kml)
+    maps_me_kml = trip.spots(format: :kml)
 
-  content_type "application/vnd.google-earth.kml+xml"
-  attachment trip.file_name(format: :kml)
-  maps_me_kml
+    content_type "application/vnd.google-earth.kml+xml"
+    attachment trip.file_name(format: :kml)
+    maps_me_kml
+  rescue Hitchspots::NotFound => e
+    @home = HomePresenter.new(params.merge(error_msg: e.message))
+    erb(:home)
+  end
 end
 
 get "/country" do
-  country = Hitchspots::Country.new(params[:iso_code])
+  begin
+    country = Hitchspots::Country.new(params[:iso_code])
 
-  maps_me_kml = country.spots(format: :kml)
+    maps_me_kml = country.spots(format: :kml)
 
-  content_type "application/vnd.google-earth.kml+xml"
-  attachment country.file_name(format: :kml)
-  maps_me_kml
-end
-
-error Hitchspots::NotFound do
-  @error = { message: env["sinatra.error"].message }
-  @home = HomePresenter.new(params)
-  erb(:home)
+    content_type "application/vnd.google-earth.kml+xml"
+    attachment country.file_name(format: :kml)
+    maps_me_kml
+  rescue Hitchspots::NotFound => e
+    @home = HomePresenter.new(params.merge(error_msg: e.message))
+    erb(:home)
+  end
 end
 
 error do
-  @error = { message: "Sorry, our service is unavailable at the moment, "\
-                      "please try again later" }
-  @home = HomePresenter.new(params)
+  msg = "Sorry, our service is unavailable at the moment, "\
+        "please try again later"
+  @home = HomePresenter.new(params.merge(error_msg: msg))
   erb(:home)
 end

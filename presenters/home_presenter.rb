@@ -18,6 +18,10 @@ class HomePresenter
     @country ||= Hitchspots::Country.new(params[:iso_code] || "AF")
   end
 
+  def error
+    @error ||= params[:error_msg] ? { message: params[:error_msg] } : nil
+  end
+
   private
 
   attr_reader :params
