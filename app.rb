@@ -6,6 +6,7 @@ require "rollbar/middleware/sinatra"
 use Rollbar::Middleware::Sinatra
 
 require "./lib/hitchspots"
+Dir.glob("./presenters/*.rb") { |f| require(f) }
 
 set :public_folder, File.dirname(__FILE__) + "/public"
 
@@ -42,9 +43,7 @@ end
 require "./lib/db/spot"
 
 get "/" do
-  @trip = Hitchspots::Trip.new(from: Hitchspots::Place.new,
-                               to:   Hitchspots::Place.new)
-  @country = Hitchspots::Country.new("AF")
+  @home = HomePresenter.new
 
   erb(:home)
 end
@@ -78,29 +77,13 @@ end
 
 error Hitchspots::NotFound do
   @error = { message: env["sinatra.error"].message }
-  @trip = Hitchspots::Trip.new(
-    from: Hitchspots::Place.new(params[:from],
-                                lat: params[:from_lat],
-                                lon: params[:from_lon]),
-    to:   Hitchspots::Place.new(params[:to],
-                                lat: params[:to_lat],
-                                lon: params[:to_lon])
-  )
-  @country = Hitchspots::Country.new(params[:iso_code] || "AF")
+  @home = HomePresenter.new(params)
   erb(:home)
 end
 
 error do
   @error = { message: "Sorry, our service is unavailable at the moment, "\
                       "please try again later" }
-  @trip = Hitchspots::Trip.new(
-    from: Hitchspots::Place.new(params[:from],
-                                lat: params[:from_lat],
-                                lon: params[:from_lon]),
-    to:   Hitchspots::Place.new(params[:to],
-                                lat: params[:to_lat],
-                                lon: params[:to_lon])
-  )
-  @country = Hitchspots::Country.new(params[:iso_code] || "AF")
+  @home = HomePresenter.new(params)
   erb(:home)
 end
