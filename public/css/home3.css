@@ -50,7 +50,7 @@ a, a:hover, a:focus {
   bottom: 15px;
 }
 
-@media (min-width:768px) {
+@media (min-width:200px) {
   .home-form {
     border-top: 0;
   }
