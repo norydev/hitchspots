@@ -73,7 +73,7 @@ module DB
           next [key, value] unless fix_encoding
 
           new_value = case value
-                      when String then re_encode(value)
+                      when String then sanitize_string(value)
                       when Array  then value.map { |v| sanitize(v) }
                       when Hash   then sanitize(value)
                       else             value
@@ -84,6 +84,11 @@ module DB
       ]
     end
     # rubocop:enable Metrics/MethodLength
+
+    def sanitize_string(string)
+      re_encoded = re_encode(string)
+      CGI::escape_html(re_encoded) if re_encoded # breaks for nil values
+    end
 
     def re_encode(string)
       string.encode("Windows-1252").force_encoding("utf-8")

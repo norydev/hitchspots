@@ -21,6 +21,16 @@ namespace :data do
   task :delete_non_sanitized do
     DB::Spot::Collection.delete_many(raw: nil, sanitized: nil)
   end
+
+  desc "escape html"
+  task :escape_html do
+    DB::Spot::Collection.find.projection("raw" => 1,  _id: 0).to_a
+                        .map { |s| symbolize_keys(s.fetch("raw")) }
+                        .each do |spot|
+      temp_spot = DB::Spot.new(spot)
+      temp_spot.save
+    end
+  end
 end
 
 # rubocop:disable Metrics/MethodLength
