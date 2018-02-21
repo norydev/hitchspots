@@ -34,10 +34,8 @@ module Hitchspots
     # rubocop:disable Layout/MultilineMethodCallIndentation
     private_class_method def self.osrm_coordinates(start_geo, finish_geo)
       trip = Osrm.trip(start_geo, finish_geo)
-
       # TODO: Not found should not be an exception
       raise NotFound, "No route found" if trip[:code] == "NoRoute"
-
       trip.fetch(:trips, [{}])
           .first
           .fetch(:geometry, {})
@@ -49,10 +47,8 @@ module Hitchspots
     # rubocop:disable Layout/MultilineMethodCallIndentation
     private_class_method def self.mapbox_coordinates(start_geo, finish_geo)
       trip = Mapbox.trip(start_geo, finish_geo)
-
       # TODO: Not found should not be an exception
       raise NotFound, "No route found" if trip[:code] == "NoRoute"
-
       trip.fetch(:routes, [{}])
           .first
           .fetch(:geometry, {})

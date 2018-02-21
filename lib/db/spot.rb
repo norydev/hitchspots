@@ -87,7 +87,7 @@ module DB
 
     def sanitize_string(string)
       re_encoded = re_encode(string)
-      CGI::escape_html(re_encoded) if re_encoded # breaks for nil values
+      CGI.escape_html(re_encoded) if re_encoded # breaks for nil values
     end
 
     def re_encode(string)

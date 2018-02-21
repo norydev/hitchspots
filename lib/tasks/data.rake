@@ -1,5 +1,6 @@
 # Tasks to migrate data in mongoDB
 # Warning!! Only run each migration once
+# rubocop:disable Metrics/BlockLength
 namespace :data do
   desc "save raw as one value and sanitized as another"
   task :separate_raw_and_sanitized do
@@ -24,7 +25,7 @@ namespace :data do
 
   desc "escape html"
   task :escape_html do
-    DB::Spot::Collection.find.projection("raw" => 1,  _id: 0).to_a
+    DB::Spot::Collection.find.projection("raw" => 1, _id: 0).to_a
                         .map { |s| symbolize_keys(s.fetch("raw")) }
                         .each do |spot|
       temp_spot = DB::Spot.new(spot)
@@ -32,6 +33,7 @@ namespace :data do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
 
 # rubocop:disable Metrics/MethodLength
 def symbolize_keys(hash)
