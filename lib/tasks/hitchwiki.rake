@@ -39,7 +39,7 @@ namespace :hitchwiki do
     hw_ratings = hitchwiki_spots.map { |s| [s[:id], s[:rating]] }
 
     (hw_ratings - db_ratings).each do |changed|
-      detailed_spot = Hitchspots::Hitchwiki.spot(changed[:id])
+      detailed_spot = Hitchspots::Hitchwiki.spot(changed.first)
       hitchspot = DB::Spot.new(detailed_spot)
       hitchspot.save
     end
