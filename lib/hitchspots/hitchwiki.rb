@@ -4,12 +4,12 @@ require "json"
 
 module Hitchspots
   # Hitchwiki maps API wrapper
-  # Documentation: http://hitchwiki.org/maps/, click API in bottom right corner
+  # Documentation: https://hitchwiki.org/maps/, click API in bottom right corner
   module Hitchwiki
-    BASE_URL = "http://hitchwiki.org/maps/api/".freeze
+    BASE_URL = "https://hitchwiki.org/maps/api/".freeze
 
     # Get detail of a spots by it"s ID.
-    # doc: http://hitchwiki.org/maps/ => #place_info paragraph
+    # doc: https://hitchwiki.org/maps/ => #place_info paragraph
     #
     # @param [String] id ID of spot (Hitchwiki ID)
     #
@@ -28,7 +28,7 @@ module Hitchspots
     end
 
     # Get all the spots in a bounded area.
-    # doc: http://hitchwiki.org/maps/ => #places_area paragraph
+    # doc: https://hitchwiki.org/maps/ => #places_area paragraph
     #
     # @param [Float|Integer|String] bounds Four coordinates:
     #                                      lat_min, lat_max, lon_min, lon_max
@@ -49,7 +49,7 @@ module Hitchspots
     end
 
     # Get all the spots in a bounded area.
-    # doc: http://hitchwiki.org/maps/ => #places_country paragraph
+    # doc: https://hitchwiki.org/maps/ => #places_country paragraph
     #
     # @param [String] country_iso_code ISO code of country
     #

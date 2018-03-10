@@ -17,14 +17,14 @@ module Hitchspots
 
     # Hitchwiki:
     module Spot
-      # area: http://hitchwiki.org/maps/api/?bounds=46.70,46.80,6.56,6.77&format=json
+      # area: https://hitchwiki.org/maps/api/?bounds=46.70,46.80,6.56,6.77&format=json
       def self.all
         JSON.parse(File.read("#{__dir__}/responses/all_spots_example.json"),
                    symbolize_names: true)
       end
 
       # NOTE: Unused yet
-      # 1 spot: http://hitchwiki.org/maps/api/?place=18953
+      # 1 spot: https://hitchwiki.org/maps/api/?place=18953
       def self.find(_id)
         JSON.parse(File.read("#{__dir__}/responses/spot_example.json"),
                    symbolize_names: true)

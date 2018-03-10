@@ -4,10 +4,10 @@ require "json"
 
 module Hitchspots
   # OpenStreetMap Nominatim API wrapper
-  # Documentation: http://wiki.openstreetmap.org/wiki/Nominatim
+  # Documentation: https://wiki.openstreetmap.org/wiki/Nominatim
   module OpenStreetMap
     # Using Search service, fetch geolocation for a place.
-    # doc: http://wiki.openstreetmap.org/wiki/Nominatim#Search
+    # doc: https://wiki.openstreetmap.org/wiki/Nominatim#Search
     #
     # @param [String] place_name A Place name that is geolocatable (city, etc)
     #
