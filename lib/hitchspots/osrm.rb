@@ -13,10 +13,10 @@ module Hitchspots
     # @param [Hash] finist Coordidates hash like { lat: 1.23455, lon: 9.87654 }
     #
     # @return [Hash] A Trip object from OSRM
-    def self.trip(start, finish)
+    def self.trip(places)
       base_url = "https://router.project-osrm.org/trip/v1/driving/"
-      uri      = URI("#{base_url}#{start[:lon]},#{start[:lat]};"\
-                     "#{finish[:lon]},#{finish[:lat]}")
+      places_coords = places.map { |place| "#{place[:lon]},#{place[:lat]}" }.join(";")
+      uri = URI("#{base_url}#{places_coords}")
 
       uri.query = URI.encode_www_form(source: "first",
                                       destination: "last",

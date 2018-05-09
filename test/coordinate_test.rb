@@ -17,26 +17,29 @@ class CoordinateTest < Minitest::Test
   end
 
   def test_for_trip_correct
-    coords = Hitchspots::Coordinate.for_trip(Hitchspots::Place.new("Berlin"),
-                                             Hitchspots::Place.new("Paris"),
-                                             api: :mapbox)
+    coords = Hitchspots::Coordinate.for_trip(
+      [Hitchspots::Place.new("Berlin"), Hitchspots::Place.new("Paris")],
+      api: :mapbox
+    )
 
     assert_equal coords, JSON.parse(File.read("#{__dir__}/doubles/responses/coords_example.json"))
   end
 
   def test_for_trip_osrm
-    coords = Hitchspots::Coordinate.for_trip(Hitchspots::Place.new("Berlin"),
-                                             Hitchspots::Place.new("Paris"),
-                                             api: :osrm)
+    coords = Hitchspots::Coordinate.for_trip(
+      [Hitchspots::Place.new("Berlin"), Hitchspots::Place.new("Paris")],
+      api: :osrm
+    )
 
     assert_equal coords, JSON.parse(File.read("#{__dir__}/doubles/responses/coords_example.json"))
   end
 
   def test_for_trip_wrong_api
     assert_raises Hitchspots::Error do
-      Hitchspots::Coordinate.for_trip(Hitchspots::Place.new("Berlin"),
-                                      Hitchspots::Place.new("Paris"),
-                                      api: :unknown)
+      Hitchspots::Coordinate.for_trip(
+        [Hitchspots::Place.new("Berlin"), Hitchspots::Place.new("Paris")],
+        api: :unknown
+      )
     end
   end
 

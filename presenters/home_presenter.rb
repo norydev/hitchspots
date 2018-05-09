@@ -5,12 +5,10 @@ class HomePresenter
 
   def trip
     @trip ||= Hitchspots::Trip.new(
-      from: Hitchspots::Place.new(params[:from],
-                                  lat: params[:from_lat],
-                                  lon: params[:from_lon]),
-      to:   Hitchspots::Place.new(params[:to],
-                                  lat: params[:to_lat],
-                                  lon: params[:to_lon])
+      places: [
+        Hitchspots::Place.new(params[:from], lat: params[:from_lat], lon: params[:from_lon]),
+        Hitchspots::Place.new(params[:to], lat: params[:to_lat], lon: params[:to_lon])
+      ]
     )
   end
 

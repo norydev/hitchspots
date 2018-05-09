@@ -24,15 +24,15 @@
             <form method="GET" action="/trip">
               <div class="form-group">
                 <label for="from">From</label>
-                <input id="from" type="text" class="form-control" name="from" placeholder="Geneva" required="true" autocomplete="off" value="<%= @home.trip.from.name %>">
-                <input id="from_lat" type="hidden" name="from_lat" value="<%= @home.trip.from.lat %>">
-                <input id="from_lon" type="hidden" name="from_lon" value="<%= @home.trip.from.lon %>">
+                <input id="from" type="text" class="form-control" name="from" placeholder="Geneva" required="true" autocomplete="off" value="<%= @home.trip.places[0].name %>">
+                <input id="from_lat" type="hidden" name="from_lat" value="<%= @home.trip.places[0].lat %>">
+                <input id="from_lon" type="hidden" name="from_lon" value="<%= @home.trip.places[0].lon %>">
               </div>
               <div class="form-group">
                 <label for="to">To</label>
-                <input id="to" type="text" class="form-control" name="to" placeholder="Zürich" required="true" autocomplete="off" value="<%= @home.trip.to.name %>">
-                <input id="to_lat" type="hidden" name="to_lat" value="<%= @home.trip.to.lat %>">
-                <input id="to_lon" type="hidden" name="to_lon" value="<%= @home.trip.to.lon %>">
+                <input id="to" type="text" class="form-control" name="to" placeholder="Zürich" required="true" autocomplete="off" value="<%= @home.trip.places[-1].name %>">
+                <input id="to_lat" type="hidden" name="to_lat" value="<%= @home.trip.places[-1].lat %>">
+                <input id="to_lon" type="hidden" name="to_lon" value="<%= @home.trip.places[-1].lon %>">
               </div>
               <button type="submit" class="btn btn-success btn-submit" title="Send this file to your phone and import it into MAPS.me">Generate MAPS.me Bookmarks</button>
             </form>

@@ -4,12 +4,11 @@ require "./app"
 class HomePresenterTest < Minitest::Test
   def test_empty_trip
     home = HomePresenter.new
-    origin = home.trip.from
-    destination = home.trip.to
+    places = home.trip.places
 
     [:name, :lat, :lon].each do |attr|
-      assert_nil origin.public_send(attr)
-      assert_nil destination.public_send(attr)
+      assert_nil places[0].public_send(attr)
+      assert_nil places[-1].public_send(attr)
     end
   end
 
@@ -24,9 +23,11 @@ class HomePresenterTest < Minitest::Test
     home = HomePresenter.new(from: "Here", from_lat: "1.234", from_lon: "2.324",
                              to:   "Da",   to_lat:   "3.456", to_lon:   "4.567")
 
-    assert_equal home.trip.from.name, "Here"
-    assert_equal home.trip.from.lat,  "1.234"
-    assert_equal home.trip.from.lon,  "2.324"
+    from = home.trip.places[0]
+
+    assert_equal from.name, "Here"
+    assert_equal from.lat,  "1.234"
+    assert_equal from.lon,  "2.324"
   end
 
   def test_country_with_params

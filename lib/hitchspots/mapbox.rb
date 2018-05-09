@@ -13,10 +13,11 @@ module Hitchspots
     # @param [Hash] finish Coordidates hash like { lat: 1.23455, lon: 9.87654 }
     #
     # @return [Hash] A Trip object from Mapbox
-    def self.trip(start, finish)
+    def self.trip(places)
       base_url = "https://api.mapbox.com/directions/v5/mapbox/driving/"
-      uri      = URI("#{base_url}#{start[:lon]},#{start[:lat]};"\
-                     "#{finish[:lon]},#{finish[:lat]}")
+
+      places_coords = places.map { |place| "#{place[:lon]},#{place[:lat]}" }.join(";")
+      uri = URI("#{base_url}#{places_coords}")
 
       uri.query = URI.encode_www_form(geometries: "geojson",
                                       access_token: ENV["MAPBOX_TOKEN"])
