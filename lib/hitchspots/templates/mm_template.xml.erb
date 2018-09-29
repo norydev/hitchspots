@@ -49,8 +49,20 @@ end
       </Icon>
     </IconStyle>
   </Style>
-  <name>HitchSpots: <%= title %></name>
+  <Style id="line-black">
+    <LineStyle>
+        <color>ff000000</color>
+    </LineStyle>
+  </Style>
+  <name>Hitchspots: <%= title %></name>
   <visibility>1</visibility>
+  <% if defined?(coordinates) && coordinates&.any? %>
+  <Placemark>
+    <name><%= title %></name>
+    <styleUrl>#line-black</styleUrl>
+    <LineString><coordinates><%= coordinates.map { |internal| internal.join(",") }.join("\n") %></coordinates></LineString>
+  </Placemark>
+  <% end %>
   <% spots.each_with_index do |spot, i| %>
   <Placemark>
     <name><%= spot.fetch("location", {}).fetch("locality", nil) || "Spot #{spot['id']}" %></name>

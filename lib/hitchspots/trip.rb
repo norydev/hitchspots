@@ -21,7 +21,7 @@ module Hitchspots
 
       case format
       when :json then spots.to_json
-      when :kml  then build_kml(spots)
+      when :kml  then build_kml(spots, coordinates: coords)
       else            spots
       end
     end
@@ -74,10 +74,11 @@ module Hitchspots
       [area_lat_min, area_lat_max, area_lon_min, area_lon_max]
     end
 
-    def build_kml(spots)
-      title = "#{from.short_name} - #{to.short_name}"
-      spots = spots
-      time  = Time.now.utc.iso8601
+    def build_kml(spots, coordinates: nil)
+      title       = "#{from.short_name} - #{to.short_name}"
+      spots       = spots
+      coordinates = coordinates
+      time        = Time.now.utc.iso8601
       ERB.new(File.read("#{__dir__}/templates/mm_template.xml.erb"), 0, ">")
          .result(binding)
     end
