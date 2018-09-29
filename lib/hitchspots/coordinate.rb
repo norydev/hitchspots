@@ -36,6 +36,7 @@ module Hitchspots
       trip = Osrm.trip(start_geo, finish_geo)
       # TODO: Not found should not be an exception
       raise NotFound, "No route found" if trip[:code] == "NoRoute"
+
       trip.fetch(:trips, [{}])
           .first
           .fetch(:geometry, {})
@@ -49,6 +50,7 @@ module Hitchspots
       trip = Mapbox.trip(start_geo, finish_geo)
       # TODO: Not found should not be an exception
       raise NotFound, "No route found" if trip[:code] == "NoRoute"
+
       trip.fetch(:routes, [{}])
           .first
           .fetch(:geometry, {})
