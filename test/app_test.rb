@@ -33,6 +33,12 @@ class AppTest < MiniTest::Test
     assert last_response.ok?
   end
 
+  def test_v2_trip
+    get "/v2/trip", places: { "0" => { name: "Paris" }, "1" => { name: "Berlin" } }
+
+    assert last_response.ok?
+  end
+
   def test_country
     get "/country", name: "Finland", iso_code: "FI"
 

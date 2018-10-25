@@ -19,4 +19,4 @@ Layout/MultilineMethodCallIndentation:
 Lint/HandleExceptions:
   Enabled: false
 Metrics/AbcSize:
-  Max: 16
+  Max: 16.1

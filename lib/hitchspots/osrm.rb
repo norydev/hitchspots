@@ -9,14 +9,13 @@ module Hitchspots
     # Using Trip service, fetch trip data knowing start and finish locations.
     # doc: http://project-osrm.org/docs/v5.10.0/api/#trip-service
     #
-    # @param [Hash] start  Coordidates hash like { lat: 1.23455, lon: 9.87654 }
-    # @param [Hash] finist Coordidates hash like { lat: 1.23455, lon: 9.87654 }
+    # @param [Array<Hash>] geolocs Array of Coordidates hash like { lat: 1.23455, lon: 9.87654 }
     #
     # @return [Hash] A Trip object from OSRM
-    def self.trip(start, finish)
+    def self.trip(geolocs)
       base_url = "https://router.project-osrm.org/trip/v1/driving/"
-      uri      = URI("#{base_url}#{start[:lon]},#{start[:lat]};"\
-                     "#{finish[:lon]},#{finish[:lat]}")
+      points   = geolocs.map { |geoloc| "#{geoloc[:lon]},#{geoloc[:lat]}" }.join(";")
+      uri      = URI("#{base_url}#{points}")
 
       uri.query = URI.encode_www_form(source: "first",
                                       destination: "last",

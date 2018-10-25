@@ -4,8 +4,8 @@ require "./app"
 class HomePresenterTest < Minitest::Test
   def test_empty_trip
     home = HomePresenter.new
-    origin = home.trip.from
-    destination = home.trip.to
+    origin = home.trip.places.first
+    destination = home.trip.places.last
 
     [:name, :lat, :lon].each do |attr|
       assert_nil origin.public_send(attr)
@@ -21,12 +21,14 @@ class HomePresenterTest < Minitest::Test
   end
 
   def test_trip_with_params
-    home = HomePresenter.new(from: "Here", from_lat: "1.234", from_lon: "2.324",
-                             to:   "Da",   to_lat:   "3.456", to_lon:   "4.567")
+    home = HomePresenter.new(places: {
+                               "0" => { name: "Here", lat: "1.234", lon: "2.324" },
+                               "1" => { name: "Da",   lat: "3.456", lon: "4.567" }
+                             })
 
-    assert_equal home.trip.from.name, "Here"
-    assert_equal home.trip.from.lat,  "1.234"
-    assert_equal home.trip.from.lon,  "2.324"
+    assert_equal home.trip.places.first.name, "Here"
+    assert_equal home.trip.places.first.lat,  "1.234"
+    assert_equal home.trip.places.first.lon,  "2.324"
   end
 
   def test_country_with_params

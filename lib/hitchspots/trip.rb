@@ -5,17 +5,15 @@ require "time"
 module Hitchspots
   # Hitchhiking trip for which we would like to get the Hitchwiki maps spots
   class Trip
-    attr_reader :from, :to
+    attr_reader :places
 
-    # @param [Place] from Place object, origin of Trip
-    # @param [Place] to   Place object, destination of Trip
-    def initialize(from:, to:)
-      @from = from
-      @to   = to
+    # @param [Array<Place>] Array of Place objects, from origin to end of trip with via points
+    def initialize(places:)
+      @places = places
     end
 
     def spots(format: nil)
-      coords = Coordinate.for_trip(from, to, api: :mapbox)
+      coords = Coordinate.for_trip(places, api: :mapbox)
       bounds = areas(coords)
       spots  = find_spots(bounds)
 
@@ -28,8 +26,8 @@ module Hitchspots
 
     # Example: paris-berlin.kml
     def file_name(format: :txt)
-      "#{from.short_name.downcase.gsub(/[^a-z]/, '_')}-"\
-      "#{to.short_name.downcase.gsub(/[^a-z]/, '_')}.#{format}"
+      "#{places.first.short_name.downcase.gsub(/[^a-z]/, '_')}-"\
+      "#{places.last.short_name.downcase.gsub(/[^a-z]/, '_')}.#{format}"
     end
 
     private
@@ -75,7 +73,7 @@ module Hitchspots
     end
 
     def build_kml(spots, coordinates: nil)
-      title       = "#{from.short_name} - #{to.short_name}"
+      title       = "#{places.first.short_name} - #{places.last.short_name}"
       spots       = spots
       coordinates = coordinates
       time        = Time.now.utc.iso8601

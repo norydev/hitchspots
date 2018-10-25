@@ -1,35 +1,31 @@
 $(document).ready(function() {
+  //////////////
+  // Geocoding
+  //////////////
   var engine = new PhotonAddressEngine();
 
-  $('#from').typeahead(null, {
-    source: engine.ttAdapter(),
-    displayKey: 'description'
+  $("[data-behaviour~='geocode']").each(function(_, el) {
+    var index = $(el).attr('data-place-index');
+
+    $('#places-' + index).typeahead(null, {
+      source: engine.ttAdapter(),
+      displayKey: 'description'
+    });
+
+    // Required to bind addresspicker:selected
+    engine.bindDefaultTypeaheadEvent($('#places-' + index))
+
+    $(engine).bind('addresspicker:selected', function (event, selectedPlace) {
+      if ($('#places-' + index).val() === selectedPlace.description) {
+        $('#places-' + index + '-lon').val(selectedPlace.geometry.coordinates[0])
+        $('#places-' + index + '-lat').val(selectedPlace.geometry.coordinates[1])
+      }
+    });
   });
 
-  $('#to').typeahead(null, {
-    source: engine.ttAdapter(),
-    displayKey: 'description'
-  });
-
-  // Those 2 are required to bind addresspicker:selected
-  engine.bindDefaultTypeaheadEvent($('#from'))
-  engine.bindDefaultTypeaheadEvent($('#to'))
-
-  $(engine).bind('addresspicker:selected', function (event, selectedPlace) {
-    if ($('#from').val() === selectedPlace.description) {
-      $('#from_lon').val(selectedPlace.geometry.coordinates[0])
-      $('#from_lat').val(selectedPlace.geometry.coordinates[1])
-    }
-
-    // No else if because both input could have the same value. That would
-    // make no sense product wise, but it's a technical possibility.
-    if ($('#to').val() === selectedPlace.description) {
-      $('#to_lon').val(selectedPlace.geometry.coordinates[0])
-      $('#to_lat').val(selectedPlace.geometry.coordinates[1])
-    }
-  });
-
-  // Bootstrap tabs:
+  ///////////////////
+  // Bootstrap tabs
+  ///////////////////
   $('#kind-tabs a').click(function (e) {
     e.preventDefault()
     $(this).tab('show')

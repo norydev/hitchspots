@@ -48,13 +48,33 @@ end
 
 get "/trip" do
   begin
-    trip = Hitchspots::Trip.new(
+    trip = Hitchspots::Deprecated::Trip.new(
       from: Hitchspots::Place.new(params[:from],
                                   lat: params[:from_lat],
                                   lon: params[:from_lon]),
       to:   Hitchspots::Place.new(params[:to],
                                   lat: params[:to_lat],
                                   lon: params[:to_lon])
+    )
+
+    maps_me_kml = trip.spots(format: :kml)
+
+    content_type "application/vnd.google-earth.kml+xml"
+    attachment trip.file_name(format: :kml)
+    maps_me_kml
+  rescue Hitchspots::NotFound => e
+    @home = HomePresenter.new(params.merge(error_msg: e.message))
+    erb(:home)
+  end
+end
+
+get "/v2/trip" do
+  begin
+    trip = Hitchspots::Trip.new(
+      places: params[:places].sort_by { |index, _| index.to_i }.map do |_, place|
+        Hitchspots::Place.new(place[:name], lat: params[:lat],
+                                            lon: params[:lon])
+      end
     )
 
     maps_me_kml = trip.spots(format: :kml)
