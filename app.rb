@@ -59,6 +59,7 @@ get "/trip" do
 
     maps_me_kml = trip.spots(format: :kml)
 
+    response.headers["Warning"] = "299 hitchspots.me/trip \"Deprecated\""
     content_type "application/vnd.google-earth.kml+xml"
     attachment trip.file_name(format: :kml)
     maps_me_kml

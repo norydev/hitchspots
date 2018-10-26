@@ -31,6 +31,7 @@ class AppTest < MiniTest::Test
     get "/trip", from: "Paris", to: "Berlin"
 
     assert last_response.ok?
+    assert_equal last_response.headers["Warning"], "299 hitchspots.me/trip \"Deprecated\""
   end
 
   def test_v2_trip
