@@ -16,6 +16,8 @@ gem "rubocop"
 
 group :development do
   gem "dotenv"
+  gem "rb-fsevent"
+  gem "rerun"
 end
 
 group :test do
@@ -23,4 +25,8 @@ group :test do
   gem "minitest-color"
   gem "rack-test"
   gem "webmock"
+end
+
+group :development, :test do
+  gem "pry-byebug"
 end

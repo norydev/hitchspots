@@ -6,11 +6,19 @@ GEM
     ast (2.4.0)
     bson (4.3.0)
     bson_ext (1.5.1)
+    byebug (10.0.2)
+    coderay (1.1.2)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     dotenv (2.5.0)
+    ffi (1.9.25)
     hashdiff (0.3.7)
     jaro_winkler (1.5.1)
+    listen (3.1.5)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
+      ruby_dep (~> 1.2)
+    method_source (0.9.0)
     minitest (5.11.3)
     minitest-color (0.0.2)
       minitest (~> 5)
@@ -22,6 +30,12 @@ GEM
     parser (2.5.1.2)
       ast (~> 2.4.0)
     powerpack (0.1.2)
+    pry (0.11.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+    pry-byebug (3.6.0)
+      byebug (~> 10.0)
+      pry (~> 0.10)
     public_suffix (3.0.3)
     puma (3.12.0)
     rack (2.0.5)
@@ -31,6 +45,11 @@ GEM
       rack (>= 1.0, < 3)
     rainbow (3.0.0)
     rake (12.3.1)
+    rb-fsevent (0.10.3)
+    rb-inotify (0.9.10)
+      ffi (>= 0.5.0, < 2)
+    rerun (0.13.0)
+      listen (~> 3.0)
     rollbar (2.18.0)
       multi_json
     rubocop (0.59.2)
@@ -42,6 +61,7 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.10.0)
+    ruby_dep (1.5.0)
     safe_yaml (1.0.4)
     sinatra (2.0.4)
       mustermann (~> 1.0)
@@ -64,9 +84,12 @@ DEPENDENCIES
   minitest (~> 5.0)
   minitest-color
   mongo
+  pry-byebug
   puma
   rack-test
   rake
+  rb-fsevent
+  rerun
   rollbar
   rubocop
   sinatra
@@ -76,4 +99,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.4
+   1.16.6
