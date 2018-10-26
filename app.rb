@@ -10,15 +10,6 @@ Dir.glob("./presenters/*.rb") { |f| require(f) }
 
 set :public_folder, File.dirname(__FILE__) + "/public"
 
-configure do
-  Rollbar.configure do |config|
-    config.access_token = ENV["ROLLBAR_ACCESS_TOKEN"]
-    config.environment = Sinatra::Base.environment
-    config.framework = "Sinatra: #{Sinatra::VERSION}"
-    config.root = Dir.pwd
-  end
-end
-
 configure :test do
   Mongo::Logger.logger.level = ::Logger::FATAL
 
@@ -37,6 +28,13 @@ end
 configure :production do
   db = Mongo::Client.new(ENV["MONGODB_URI"])
   set :mongo_db, db[:spots]
+
+  Rollbar.configure do |config|
+    config.access_token = ENV["ROLLBAR_ACCESS_TOKEN"]
+    config.environment = Sinatra::Base.environment
+    config.framework = "Sinatra: #{Sinatra::VERSION}"
+    config.root = Dir.pwd
+  end
 end
 
 # Need DB configuration before requiring DB class
