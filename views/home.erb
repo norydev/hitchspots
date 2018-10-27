@@ -15,24 +15,24 @@
       <div class="form-wrapper">
 
         <ul id="kind-tabs" class="nav nav-tabs nav-justified">
-          <li role="presentation" class="active"><a href="#trip-tab">Trip</a></li>
+          <li role="presentation" class="active"><a href="#places-tab">Trip</a></li>
           <li role="presentation"><a href="#country-tab">Country</a></li>
         </ul>
 
         <div class="tab-content home-form">
           <div role="tabpanel" class="tab-pane active" id="trip-tab">
-            <form method="GET" action="/trip">
-              <div class="form-group">
-                <label for="from">From</label>
-                <input id="from" type="text" class="form-control" name="from" placeholder="Geneva" required="true" autocomplete="off" value="<%= @home.trip.from.name %>">
-                <input id="from_lat" type="hidden" name="from_lat" value="<%= @home.trip.from.lat %>">
-                <input id="from_lon" type="hidden" name="from_lon" value="<%= @home.trip.from.lon %>">
+            <form method="GET" action="/v2/trip">
+              <div class="form-group" data-behaviour="geocode" data-place-index='0'>
+                <label for="places[0]">From</label>
+                <input id="places-0" type="text" class="form-control" name="places[0][name]" placeholder="Geneva" required="true" autocomplete="off" value="<%= @home.trip.places.first.name %>">
+                <input id="places-0-lat" type="hidden" name="places[0][lat]" value="<%= @home.trip.places.first.lat %>">
+                <input id="places-0-lon" type="hidden" name="places[0][lon]" value="<%= @home.trip.places.first.lon %>">
               </div>
-              <div class="form-group">
-                <label for="to">To</label>
-                <input id="to" type="text" class="form-control" name="to" placeholder="Zürich" required="true" autocomplete="off" value="<%= @home.trip.to.name %>">
-                <input id="to_lat" type="hidden" name="to_lat" value="<%= @home.trip.to.lat %>">
-                <input id="to_lon" type="hidden" name="to_lon" value="<%= @home.trip.to.lon %>">
+              <div class="form-group" data-behaviour="geocode" data-place-index='1'>
+                <label for="places[1]">To</label>
+                <input id="places-1" type="text" class="form-control" name="places[1][name]" placeholder="Zürich" required="true" autocomplete="off" value="<%= @home.trip.places.last.name %>">
+                <input id="places-1-lat" type="hidden" name="places[1][lat]" value="<%= @home.trip.places.last.lat %>">
+                <input id="places-1-lon" type="hidden" name="places[1][lon]" value="<%= @home.trip.places.last.lon %>">
               </div>
               <button type="submit" class="btn btn-success btn-submit" title="Send this file to your phone and import it into MAPS.me">Generate MAPS.me Bookmarks</button>
             </form>
