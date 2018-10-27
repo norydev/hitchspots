@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap3.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/typeahead.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/home3.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/typeahead2.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/home4.css">
   </head>
   <body>
     <div class="home bg">
@@ -22,19 +22,34 @@
         <div class="tab-content home-form">
           <div role="tabpanel" class="tab-pane active" id="trip-tab">
             <form method="GET" action="/v2/trip">
-              <div class="form-group" data-behaviour="geocode" data-place-index='0'>
-                <label for="places[0]">From</label>
-                <input id="places-0" type="text" class="form-control" name="places[0][name]" placeholder="Geneva" required="true" autocomplete="off" value="<%= @home.trip.places.first.name %>">
-                <input id="places-0-lat" type="hidden" name="places[0][lat]" value="<%= @home.trip.places.first.lat %>">
-                <input id="places-0-lon" type="hidden" name="places[0][lon]" value="<%= @home.trip.places.first.lon %>">
+              <div data-target="places-inputs">
+                <div data-behaviour="geocode" data-place-index="0">
+                  <div class="input-group margin-bottom-15">
+                    <span class="input-group-addon inline-input-label" title="Origin" data-target="place-label">
+                      <span class="glyphicon glyphicon-record" aria-hidden="true"></span>
+                    </span>
+                    <input id="places-0" type="text" class="form-control" name="places[0][name]" placeholder="Geneva" required="true" autocomplete="off" value="<%= @home.trip.places.first.name %>">
+                  </div>
+                  <input id="places-0-lat" type="hidden" name="places[0][lat]" value="<%= @home.trip.places.first.lat %>">
+                  <input id="places-0-lon" type="hidden" name="places[0][lon]" value="<%= @home.trip.places.first.lon %>">
+                </div>
+                <div data-behaviour="geocode" data-place-index="1">
+                  <div class="input-group margin-bottom-15">
+                    <span class="input-group-addon inline-input-label" title="Destination" data-target="place-label">
+                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                    </span>
+                    <input id="places-1" type="text" class="form-control" name="places[1][name]" placeholder="Zürich" required="true" autocomplete="off" value="<%= @home.trip.places.last.name %>">
+                  </div>
+                  <input id="places-1-lat" type="hidden" name="places[1][lat]" value="<%= @home.trip.places.last.lat %>">
+                  <input id="places-1-lon" type="hidden" name="places[1][lon]" value="<%= @home.trip.places.last.lon %>">
+                </div>
               </div>
-              <div class="form-group" data-behaviour="geocode" data-place-index='1'>
-                <label for="places[1]">To</label>
-                <input id="places-1" type="text" class="form-control" name="places[1][name]" placeholder="Zürich" required="true" autocomplete="off" value="<%= @home.trip.places.last.name %>">
-                <input id="places-1-lat" type="hidden" name="places[1][lat]" value="<%= @home.trip.places.last.lat %>">
-                <input id="places-1-lon" type="hidden" name="places[1][lon]" value="<%= @home.trip.places.last.lon %>">
-              </div>
-              <button type="submit" class="btn btn-success btn-submit" title="Send this file to your phone and import it into MAPS.me">Generate MAPS.me Bookmarks</button>
+
+              <button type="button" class="btn btn-default block inline-input-label margin-bottom-15" title="Add a destination" onClick="addPlaceToTrip()" data-target="add-trip-button">
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+              </button>
+
+              <button type="submit" class="btn btn-success block" title="Send this file to your phone and import it into MAPS.me">Generate MAPS.me Bookmarks</button>
             </form>
           </div>
 
@@ -68,6 +83,6 @@
     <script src="/js/bootstrap2.min.js"></script>
     <script src="/js/typeahead.bundle.min.js"></script>
     <script src="/js/typeahead-address-photon.min.js"></script>
-    <script src="/js/hitchspots3.js"></script>
+    <script src="/js/hitchspots4.js"></script>
   </body>
 </html>

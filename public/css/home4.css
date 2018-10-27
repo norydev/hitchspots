@@ -42,7 +42,12 @@ a, a:hover, a:focus {
   background-color: #ffffff;
   padding: 15px;
   border: 1px solid #ddd;
-  min-height: 220px;
+  min-height: 212px;
+}
+
+.home-form .inline-input-label {
+  min-width: 40px;
+  text-align: center;
 }
 
 .home-form .btn-submit {
@@ -84,4 +89,16 @@ footer.footer {
 
 .right {
   float: right;
+}
+
+.block {
+  display: block;
+}
+
+.margin-bottom-15 {
+  margin-bottom: 15px;
+}
+
+.cursor-default {
+  cursor: default;
 }
