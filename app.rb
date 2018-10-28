@@ -73,17 +73,18 @@ get "/v2/trip" do
   begin
     trip = Hitchspots::Trip.new(
       places: params[:places].sort_by { |index, _| index.to_i }.map do |_, place|
-        Hitchspots::Place.new(place[:name], lat: place[:lat],
-                                            lon: place[:lon])
+        Hitchspots::Place.new(place[:name], lat: place[:lat], lon: place[:lon])
       end
     )
+
+    Hitchspots::Trip::Validator.new(trip).validate!
 
     maps_me_kml = trip.spots(format: :kml)
 
     content_type "application/vnd.google-earth.kml+xml"
     attachment trip.file_name(format: :kml)
     maps_me_kml
-  rescue Hitchspots::NotFound => e
+  rescue Hitchspots::NotFound, Hitchspots::ValidationError => e
     @home = HomePresenter.new(params.merge(error_msg: e.message))
     erb(:home)
   end

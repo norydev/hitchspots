@@ -1,18 +1,13 @@
 class HomePresenter
-  def initialize(params = {})
+  def initialize(params = { places: { "0" => {}, "1" => {} } })
     @params = params
   end
 
   def trip
     @trip ||= Hitchspots::Trip.new(
-      places: [
-        Hitchspots::Place.new(params.dig(:places, "0", :name),
-                              lat: params.dig(:places, "0", :lat),
-                              lon: params.dig(:places, "0", :lon)),
-        Hitchspots::Place.new(params.dig(:places, "1", :name),
-                              lat: params.dig(:places, "1", :lat),
-                              lon: params.dig(:places, "1", :lon))
-      ]
+      places: params.fetch(:places).sort_by { |index, _| index.to_i }.map do |_, place|
+        Hitchspots::Place.new(place[:name], lat: place[:lat], lon: place[:lon])
+      end
     )
   end
 
