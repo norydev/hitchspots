@@ -8,6 +8,8 @@ use Rollbar::Middleware::Sinatra
 require "./lib/hitchspots"
 Dir.glob("./presenters/*.rb") { |f| require(f) }
 
+require "sinatra/respond_with"
+
 set :public_folder, File.dirname(__FILE__) + "/public"
 
 configure :test do
@@ -75,9 +77,18 @@ get "/v2/trip" do
   validator = Hitchspots::Trip::Validator.new(trip)
 
   if validator.validate
-    render_kml(trip.kml_file, trip.file_name(format: :kml))
+    respond_to do |format|
+      format.html { render_kml(trip.kml_file, trip.file_name(format: :kml)) }
+      format.json { { route: trip.coordinates, spots: trip.spots }.to_json }
+    end
   else
-    render_home(params.merge(error_msg: validator.full_error_message))
+    respond_to do |format|
+      format.html { render_home(params.merge(error_msg: validator.full_error_message)) }
+      format.json do
+        status 422
+        { message: validator.full_error_message }.to_json
+      end
+    end
   end
 end
 

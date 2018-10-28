@@ -5,6 +5,7 @@ ruby "2.5.1"
 gem "puma"
 gem "rake"
 gem "sinatra"
+gem "sinatra-contrib", require: false
 
 # Mongo DB
 gem "bson_ext"
