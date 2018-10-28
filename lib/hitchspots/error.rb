@@ -3,4 +3,5 @@ module Hitchspots
   class ApiError < Error; end
   class ApiChanged < Error; end
   class NotFound < Error; end
+  class ValidationError < Error; end
 end

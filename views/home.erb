@@ -23,26 +23,11 @@
           <div role="tabpanel" class="tab-pane active" id="trip-tab">
             <form method="GET" action="/v2/trip">
               <div data-target="places-inputs">
-                <div data-behaviour="geocode" data-place-index="0">
-                  <div class="input-group margin-bottom-15">
-                    <span class="input-group-addon inline-input-label" title="Origin" data-target="place-label">
-                      <span class="glyphicon glyphicon-record" aria-hidden="true"></span>
-                    </span>
-                    <input id="places-0" type="text" class="form-control" name="places[0][name]" placeholder="Geneva" required="true" autocomplete="off" value="<%= @home.trip.places.first.name %>">
-                  </div>
-                  <input id="places-0-lat" type="hidden" name="places[0][lat]" value="<%= @home.trip.places.first.lat %>">
-                  <input id="places-0-lon" type="hidden" name="places[0][lon]" value="<%= @home.trip.places.first.lon %>">
-                </div>
-                <div data-behaviour="geocode" data-place-index="1">
-                  <div class="input-group margin-bottom-15">
-                    <span class="input-group-addon inline-input-label" title="Destination" data-target="place-label">
-                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                    </span>
-                    <input id="places-1" type="text" class="form-control" name="places[1][name]" placeholder="Zürich" required="true" autocomplete="off" value="<%= @home.trip.places.last.name %>">
-                  </div>
-                  <input id="places-1-lat" type="hidden" name="places[1][lat]" value="<%= @home.trip.places.last.lat %>">
-                  <input id="places-1-lon" type="hidden" name="places[1][lon]" value="<%= @home.trip.places.last.lon %>">
-                </div>
+                <%= erb :_trip_origin, locals: { place: @home.trip.places.first } %>
+                <% (@home.trip.places[1..-2] || []).each_with_index do |place, index| %>
+                  <%= erb :_trip_intermediate, locals: { place: place, index: index + 1} %>
+                <% end %>
+                <%= erb :_trip_destination, locals: { place: @home.trip.places.last, index: @home.trip.places.size - 1 } %>
               </div>
 
               <button type="button" class="btn btn-default block inline-input-label margin-bottom-15" title="Add a destination" onClick="addPlaceToTrip()" data-target="add-trip-button">

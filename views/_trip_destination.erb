@@ -1,0 +1,17 @@
+<div data-behaviour="geocode" data-place-index="<%= index %>">
+  <div class="input-group margin-bottom-15">
+    <span class="input-group-addon inline-input-label" title="Destination" data-target="place-label">
+      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+    </span>
+    <input id="places-<%= index %>" type="text" class="form-control" name="places[<%= index %>][name]" placeholder="Zürich" required="true" autocomplete="off" value="<%= place.name %>">
+    <% if index > 1 %>
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="button" onClick="removePlaceWrapper(<%= index %>)">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+      </button>
+    </span>
+    <% end %>
+  </div>
+  <input id="places-<%= index %>-lat" type="hidden" name="places[<%= index %>][lat]" value="<%= place.lat %>">
+  <input id="places-<%= index %>-lon" type="hidden" name="places[<%= index %>][lon]" value="<%= place.lon %>">
+</div>
