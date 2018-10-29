@@ -1,6 +1,7 @@
 class HomePresenter
-  def initialize(params = { places: { "0" => {}, "1" => {} } })
+  def initialize(params = {})
     @params = params
+    @params[:places] ||= { "0" => {}, "1" => {} }
   end
 
   def trip
