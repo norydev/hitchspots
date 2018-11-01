@@ -18,6 +18,45 @@ html, body {
   margin-bottom: -80px;
 }
 
+.map-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+.map {
+  position: absolute;
+  top: 0;
+  height: 100%;
+}
+
+.map-preview-overlay {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,0.3);
+}
+
+.map-preview-overlay .map-preview-action {
+  margin-top: 183px;
+}
+
+.map .mapboxgl-canvas {
+  left: 0;
+}
+
+.marker {
+  background-color: red;
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
 .home:after {
   content: "";
   display: block;
@@ -101,4 +140,8 @@ footer.footer {
 
 .cursor-default {
   cursor: default;
+}
+
+.text-white {
+  color: #ffffff;
 }

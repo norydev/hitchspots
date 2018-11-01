@@ -3,7 +3,7 @@
     <span class="input-group-addon inline-input-label" title="Via" data-target="place-label">
       <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
     </span>
-    <input id="places-<%= index %>" type="text" class="form-control" name="places[<%= index %>][name]" placeholder="<%= place&.name %>" required="true" autocomplete="off" value="<%= place&.name %>">
+    <input id="places-<%= index %>" type="text" class="form-control" name="places[<%= index %>][name]" placeholder="<%= place&.name %>" required="true" autocomplete="off" value="<%= place&.name %>" onchange="mapOverlayReset()">
     <% if index > 1 %>
     <span class="input-group-btn">
       <button class="btn btn-default" type="button" onClick="removePlaceWrapper(<%= index %>)">

@@ -3,7 +3,7 @@
     <span class="input-group-addon inline-input-label" title="Origin" data-target="place-label">
       <span class="glyphicon glyphicon-record" aria-hidden="true"></span>
     </span>
-    <input id="places-0" type="text" class="form-control" name="places[0][name]" placeholder="Geneva" required="true" autocomplete="off" value="<%= place.name %>">
+    <input id="places-0" type="text" class="form-control" name="places[0][name]" placeholder="Geneva" required="true" autocomplete="off" value="<%= place.name %>" onchange="mapOverlayReset()">
   </div>
   <input id="places-0-lat" type="hidden" name="places[0][lat]" value="<%= place.lat %>">
   <input id="places-0-lon" type="hidden" name="places[0][lon]" value="<%= place.lon %>">

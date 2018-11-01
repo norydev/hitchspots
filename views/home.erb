@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap5.min.css">
     <link rel="stylesheet" type="text/css" href="/css/typeahead2.min.css">
     <link rel="stylesheet" type="text/css" href="/css/home4.css">
+
+    <link rel="stylesheet" href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css"/>
   </head>
   <body>
     <div class="home bg">
@@ -21,7 +23,7 @@
 
         <div class="tab-content home-form">
           <div role="tabpanel" class="tab-pane active" id="trip-tab">
-            <form method="GET" action="/v2/trip">
+            <form data-target="trip-form" method="GET" action="/v2/trip">
               <div data-target="places-inputs">
                 <%= erb :_trip_origin, locals: { place: @home.trip.places.first } %>
                 <% (@home.trip.places[1..-2] || []).each_with_index do |place, index| %>
@@ -57,6 +59,16 @@
           <p class="text-error"><%= @home.error[:message] %></p>
         <% end %>
       </div>
+
+      <div class="map-wrapper">
+        <div id="map" class="map" data-map-token="<%= ENV['MAPBOX_PUBLIC_TOKEN'] %>"></div>
+        <div class="map-preview-overlay" data-target="map-preview-overlay">
+          <div class="map-preview-action" data-target="map-preview-action">
+            <button type="button" class="btn btn-primary" onClick="drawTripOnMap()">Preview</button>
+          </div>
+        </div>
+      </div>
+
     </div>
     <footer class="footer">
       <hr>
@@ -64,6 +76,7 @@
       <span class="right">Open Source <a href="https://github.com/norydev/hitchspots">code</a></span>
     </footer>
 
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js"></script>
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/bootstrap2.min.js"></script>
     <script src="/js/typeahead.bundle.min.js"></script>
