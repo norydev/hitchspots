@@ -22,7 +22,7 @@ module Hitchspots
 
       res = Net::HTTP.get_response(uri)
 
-      raise ApiError, "Mapbox unavailable" if res.code != "200"
+      raise ApiError, "Mapbox unavailable" if res.code.to_i >= 500
 
       JSON.parse(res.body, symbolize_names: true)
     end

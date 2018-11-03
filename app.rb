@@ -79,12 +79,10 @@ get "/v2/trip" do
 
     Hitchspots::Trip::Validator.new(trip).validate!
 
-    maps_me_kml = trip.kml_file
-
     content_type "application/vnd.google-earth.kml+xml"
-    attachment trip.file_name(format: :kml)
-    maps_me_kml
-  rescue Hitchspots::NotFound, Hitchspots::ValidationError => e
+    attachment   trip.file_name(format: :kml)
+    trip.kml_file
+  rescue Hitchspots::ValidationError => e
     @home = HomePresenter.new(params.merge(error_msg: e.message))
     erb(:home)
   end

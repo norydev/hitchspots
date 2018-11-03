@@ -65,8 +65,8 @@ module Hitchspots
 
       def mapbox_coordinates(geolocations)
         trip = Mapbox.trip(geolocations)
-        # TODO: Not found should not be an exception
-        raise NotFound, "No route found" if trip[:code] == "NoRoute"
+
+        raise NotFound, trip[:message] unless trip[:code] == "Ok"
 
         trip.fetch(:routes, [{}])
             .first
