@@ -6,7 +6,7 @@ class HomePresenter
 
   def trip
     @trip ||= Hitchspots::Trip.new(
-      places: params.fetch(:places).sort_by { |index, _| index.to_i }.map do |_, place|
+      *params.fetch(:places).sort_by { |index, _| index.to_i }.map do |_, place|
         Hitchspots::Place.new(place[:name], lat: place[:lat], lon: place[:lon])
       end
     )

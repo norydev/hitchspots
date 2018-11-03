@@ -8,7 +8,7 @@ module Hitchspots
     attr_reader :places
 
     # @param [Array<Place>] Array of Place objects, from origin to end of trip with via points
-    def initialize(places:)
+    def initialize(*places)
       @places = places
     end
 

@@ -17,11 +17,11 @@ class TripValidatorTest < Minitest::Test
   def test_too_many_places
     max = Hitchspots::Trip::Validator::MAX_NUMBER_OF_PLACES
 
-    invalid_trip = Hitchspots::Trip.new(
-      places: Array.new((max + 1)) do
-        Hitchspots::Place.new("Berlin", lat: "1.23", lon: "2.34")
-      end
-    )
+    too_many_places = Array.new((max + 1)) do
+      Hitchspots::Place.new("Berlin", lat: "1.23", lon: "2.34")
+    end
+
+    invalid_trip = Hitchspots::Trip.new(*too_many_places)
 
     error = assert_raise_validation_error(invalid_trip)
     assert_match(/Too many destinations, maximum is #{max}/, error.message)
@@ -31,7 +31,7 @@ class TripValidatorTest < Minitest::Test
     min = Hitchspots::Trip::Validator::MIN_NUMBER_OF_PLACES
 
     invalid_trip = Hitchspots::Trip.new(
-      places: [Hitchspots::Place.new("Berlin", lat: "1.23", lon: "2.34")]
+      Hitchspots::Place.new("Berlin", lat: "1.23", lon: "2.34")
     )
 
     error = assert_raise_validation_error(invalid_trip)
@@ -44,8 +44,8 @@ class TripValidatorTest < Minitest::Test
                  body: File.read("#{__dir__}/doubles/responses/mapbox_no_route_example.json"))
 
     invalid_trip = Hitchspots::Trip.new(
-      places: [Hitchspots::Place.new("List tiny village",  lat: "1.23", lon: "2.34"),
-               Hitchspots::Place.new("Another lost place", lat: "4.56", lon: "5.67")]
+      Hitchspots::Place.new("List tiny village",  lat: "1.23", lon: "2.34"),
+      Hitchspots::Place.new("Another lost place", lat: "4.56", lon: "5.67")
     )
 
     error = assert_raise_validation_error(invalid_trip)
@@ -60,8 +60,8 @@ class TripValidatorTest < Minitest::Test
                  body: File.read("#{__dir__}/doubles/responses/osm_no_place_example.json"))
 
     invalid_trip = Hitchspots::Trip.new(
-      places: [Hitchspots::Place.new(place),
-               Hitchspots::Place.new("Valid Place", lat: "1.23", lon: "2.34")]
+      Hitchspots::Place.new(place),
+      Hitchspots::Place.new("Valid Place", lat: "1.23", lon: "2.34")
     )
 
     error = assert_raise_validation_error(invalid_trip)
@@ -70,8 +70,8 @@ class TripValidatorTest < Minitest::Test
 
   def test_no_spots
     invalid_trip = Hitchspots::Trip.new(
-      places: [Hitchspots::Place.new("Paris",  lat: "1.23", lon: "2.34"),
-               Hitchspots::Place.new("Berlin", lat: "4.56", lon: "5.67")]
+      Hitchspots::Place.new("Paris",  lat: "1.23", lon: "2.34"),
+      Hitchspots::Place.new("Berlin", lat: "4.56", lon: "5.67")
     )
 
     error = assert_raise_validation_error(invalid_trip)
