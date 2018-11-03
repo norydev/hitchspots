@@ -79,7 +79,7 @@ get "/v2/trip" do
 
     Hitchspots::Trip::Validator.new(trip).validate!
 
-    maps_me_kml = trip.spots(format: :kml)
+    maps_me_kml = trip.kml_file
 
     content_type "application/vnd.google-earth.kml+xml"
     attachment trip.file_name(format: :kml)
@@ -94,7 +94,7 @@ get "/country" do
   begin
     country = Hitchspots::Country.new(params[:iso_code])
 
-    maps_me_kml = country.spots(format: :kml)
+    maps_me_kml = country.kml_file
 
     content_type "application/vnd.google-earth.kml+xml"
     attachment country.file_name(format: :kml)

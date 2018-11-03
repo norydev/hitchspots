@@ -12,22 +12,30 @@ module Hitchspots
       @places = places
     end
 
-    def spots(format: nil)
-      coords = Coordinate.for_trip(places, api: :mapbox)
-      bounds = areas(coords)
-      spots  = find_spots(bounds)
-
-      case format
-      when :json then spots.to_json
-      when :kml  then build_kml(spots, coordinates: coords)
-      else            spots
+    def spots
+      @spots ||= begin
+        bounds = areas(coordinates)
+        find_spots(bounds)
       end
+    end
+
+    def coordinates
+      @coordinates ||= Coordinate.for_trip(places, api: :mapbox)
     end
 
     # Example: paris-berlin.kml
     def file_name(format: :txt)
       "#{places.first.short_name.downcase.gsub(/[^a-z]/, '_')}-"\
       "#{places.last.short_name.downcase.gsub(/[^a-z]/, '_')}.#{format}"
+    end
+
+    def kml_file
+      title       = "#{places.first.short_name} - #{places.last.short_name}"
+      spots       = self.spots
+      coordinates = self.coordinates
+      time        = Time.now.utc.iso8601
+      ERB.new(File.read("#{__dir__}/templates/mm_template.xml.erb"), 0, ">")
+         .result(binding)
     end
 
     private
@@ -70,15 +78,6 @@ module Hitchspots
       area_lon_max = zones.map { |z| z[3] }.max
 
       [area_lat_min, area_lat_max, area_lon_min, area_lon_max]
-    end
-
-    def build_kml(spots, coordinates: nil)
-      title       = "#{places.first.short_name} - #{places.last.short_name}"
-      spots       = spots
-      coordinates = coordinates
-      time        = Time.now.utc.iso8601
-      ERB.new(File.read("#{__dir__}/templates/mm_template.xml.erb"), 0, ">")
-         .result(binding)
     end
   end
 end

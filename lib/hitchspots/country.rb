@@ -15,19 +15,21 @@ module Hitchspots
       @country_name = COUNTRIES.fetch(iso_code)
     end
 
-    def spots(format: nil)
-      spots = find_spots
-
-      case format
-      when :json then spots.to_json
-      when :kml  then build_kml(spots)
-      else            spots
-      end
+    def spots
+      @spots ||= find_spots
     end
 
     # Example: finland.kml
     def file_name(format: :txt)
       "#{country_name.downcase.gsub(/[^a-z]/, '_')}.#{format}"
+    end
+
+    def kml_file
+      title = country_name.to_s
+      spots = self.spots
+      time  = Time.now.utc.iso8601
+      ERB.new(File.read("#{__dir__}/templates/mm_template.xml.erb"), 0, ">")
+         .result(binding)
     end
 
     private
@@ -40,14 +42,6 @@ module Hitchspots
 
     def spot_ids_from_hitchwiki
       Hitchwiki.spots_by_country(iso_code).map { |spot| spot[:id] }
-    end
-
-    def build_kml(spots)
-      title = country_name.to_s
-      spots = spots
-      time  = Time.now.utc.iso8601
-      ERB.new(File.read("#{__dir__}/templates/mm_template.xml.erb"), 0, ">")
-         .result(binding)
     end
   end
 end
