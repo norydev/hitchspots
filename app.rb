@@ -91,13 +91,12 @@ end
 get "/country" do
   begin
     country = Hitchspots::Country.new(params[:iso_code])
-
-    maps_me_kml = country.kml_file
+    Hitchspots::Country::Validator.new(country).validate!
 
     content_type "application/vnd.google-earth.kml+xml"
-    attachment country.file_name(format: :kml)
-    maps_me_kml
-  rescue Hitchspots::NotFound => e
+    attachment   country.file_name(format: :kml)
+    country.kml_file
+  rescue Hitchspots::ValidationError => e
     @home = HomePresenter.new(params.merge(error_msg: e.message))
     erb(:home)
   end

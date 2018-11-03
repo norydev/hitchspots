@@ -54,7 +54,6 @@ module Hitchspots
 
       def osrm_coordinates(geolocations)
         trip = Osrm.trip(geolocations)
-        # TODO: Not found should not be an exception
         raise NotFound, "No route found" if trip[:code] == "NoRoute"
 
         trip.fetch(:trips, [{}])

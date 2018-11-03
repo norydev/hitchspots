@@ -17,7 +17,7 @@ class HomePresenterTest < Minitest::Test
     home = HomePresenter.new
 
     assert_equal home.country.iso_code, "AF"
-    assert_equal home.country.country_name, "Afghanistan"
+    assert_equal home.country.name,     "Afghanistan"
   end
 
   def test_trip_with_params
@@ -35,7 +35,7 @@ class HomePresenterTest < Minitest::Test
     home = HomePresenter.new(iso_code: "CH")
 
     assert_equal home.country.iso_code, "CH"
-    assert_equal home.country.country_name, "Switzerland"
+    assert_equal home.country.name,     "Switzerland"
   end
 
   def test_empty_error
