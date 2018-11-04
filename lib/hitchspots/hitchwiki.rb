@@ -68,9 +68,8 @@ module Hitchspots
 
       parsed_body = JSON.parse(res.body, symbolize_names: true)
 
-      # TODO: Not found should not be an exception
       if parsed_body.is_a?(Hash) && parsed_body.fetch(:error_description, nil) == "No results."
-        raise NotFound, "#{Hitchspots::Country::COUNTRIES[country_iso_code]} has no spots"
+        return []
       end
 
       parsed_body
