@@ -11,13 +11,17 @@ module Hitchspots
       def validate
         _validate_has_spots
 
-        errors.any? ? false : true
+        errors.any? ? false : self
       end
 
       def validate!
         return if validate
 
         raise ValidationError, errors.map { |e| e[:message] }.join(", ")
+      end
+
+      def full_error_message
+        errors.map { |e| e[:message] }.join(", ")
       end
 
       private

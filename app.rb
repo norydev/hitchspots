@@ -41,9 +41,7 @@ end
 require "./lib/db/spot"
 
 get "/" do
-  @home = HomePresenter.new
-
-  erb(:home)
+  render_home
 end
 
 get "/trip" do
@@ -64,47 +62,50 @@ get "/trip" do
     attachment trip.file_name(format: :kml)
     maps_me_kml
   rescue Hitchspots::NotFound => e
-    @home = HomePresenter.new(params.merge(error_msg: e.message))
-    erb(:home)
+    render_home(params.merge(error_msg: e.message))
   end
 end
 
 get "/v2/trip" do
-  begin
-    trip = Hitchspots::Trip.new(
-      *params[:places].sort_by { |index, _| index.to_i }.map do |_, place|
-        Hitchspots::Place.new(place[:name], lat: place[:lat], lon: place[:lon])
-      end
-    )
+  trip = Hitchspots::Trip.new(
+    *params[:places].sort_by { |index, _| index.to_i }.map do |_, place|
+      Hitchspots::Place.new(place[:name], lat: place[:lat], lon: place[:lon])
+    end
+  )
+  validator = Hitchspots::Trip::Validator.new(trip)
 
-    Hitchspots::Trip::Validator.new(trip).validate!
-
-    content_type "application/vnd.google-earth.kml+xml"
-    attachment   trip.file_name(format: :kml)
-    trip.kml_file
-  rescue Hitchspots::ValidationError => e
-    @home = HomePresenter.new(params.merge(error_msg: e.message))
-    erb(:home)
+  if validator.validate
+    render_kml(trip.kml_file, trip.file_name(format: :kml))
+  else
+    render_home(params.merge(error_msg: validator.full_error_message))
   end
 end
 
 get "/country" do
-  begin
-    country = Hitchspots::Country.new(params[:iso_code])
-    Hitchspots::Country::Validator.new(country).validate!
+  country = Hitchspots::Country.new(params[:iso_code])
+  validator = Hitchspots::Country::Validator.new(country)
 
-    content_type "application/vnd.google-earth.kml+xml"
-    attachment   country.file_name(format: :kml)
-    country.kml_file
-  rescue Hitchspots::ValidationError => e
-    @home = HomePresenter.new(params.merge(error_msg: e.message))
-    erb(:home)
+  if validator.validate
+    render_kml(country.kml_file, country.file_name(format: :kml))
+  else
+    render_home(params.merge(error_msg: validator.full_error_message))
   end
 end
 
 error do
   msg = "Sorry, our service is unavailable at the moment, "\
         "please try again later"
-  @home = HomePresenter.new(params.merge(error_msg: msg))
+  render_home(params.merge(error_msg: msg))
+end
+
+def render_home(params = {})
+  @home = HomePresenter.new(params)
+
   erb(:home)
+end
+
+def render_kml(file, file_name)
+  content_type "application/vnd.google-earth.kml+xml"
+  attachment   file_name
+  file
 end

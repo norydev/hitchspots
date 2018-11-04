@@ -22,13 +22,17 @@ module Hitchspots
           errors << { message: e.message }
         end
 
-        errors.any? ? false : true
+        errors.any? ? false : self
       end
 
       def validate!
         return if validate
 
-        raise ValidationError, errors.map { |e| e[:message] }.join(", ")
+        raise ValidationError, full_error_message
+      end
+
+      def full_error_message
+        errors.map { |e| e[:message] }.join(", ")
       end
 
       private
