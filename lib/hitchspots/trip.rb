@@ -20,7 +20,7 @@ module Hitchspots
     end
 
     def coordinates
-      @coordinates ||= Coordinate.for_trip(places, api: :mapbox)
+      @coordinates ||= Coordinate.for_trip(places)
     end
 
     # Example: paris-berlin.kml

@@ -10,24 +10,11 @@ class CoordinateTest < Minitest::Test
     stub_request(:get, %r{https\:\/\/api\.mapbox\.com\/directions\/v5\/mapbox\/driving\/.*})
       .to_return(status: 200,
                  body: File.read("#{__dir__}/doubles/responses/mapbox_example.json"))
-
-    stub_request(:get, %r{https\:\/\/router\.project\-osrm\.org\/trip\/v1\/driving\/.*})
-      .to_return(status: 200,
-                 body: File.read("#{__dir__}/doubles/responses/osrm_example.json"))
   end
 
   def test_for_trip_correct
     coords = Hitchspots::Coordinate.for_trip([Hitchspots::Place.new("Berlin"),
-                                              Hitchspots::Place.new("Paris")],
-                                             api: :mapbox)
-
-    assert_equal coords, JSON.parse(File.read("#{__dir__}/doubles/responses/coords_example.json"))
-  end
-
-  def test_for_trip_osrm
-    coords = Hitchspots::Coordinate.for_trip([Hitchspots::Place.new("Berlin"),
-                                              Hitchspots::Place.new("Paris")],
-                                             api: :osrm)
+                                              Hitchspots::Place.new("Paris")])
 
     assert_equal coords, JSON.parse(File.read("#{__dir__}/doubles/responses/coords_example.json"))
   end

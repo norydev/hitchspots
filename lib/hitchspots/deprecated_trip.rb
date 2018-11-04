@@ -16,7 +16,7 @@ module Hitchspots
       end
 
       def spots(format: nil)
-        coords = Coordinate.for_deprecated_trip(from, to, api: :mapbox)
+        coords = Coordinate.for_deprecated_trip(from, to)
         bounds = areas(coords)
         spots  = find_spots(bounds)
 
