@@ -5,6 +5,8 @@ Bundler.require(:default, ENV["RACK_ENV"].to_sym)
 require "rollbar/middleware/sinatra"
 use Rollbar::Middleware::Sinatra
 
+require "./lib/cache/cache"
+
 require "./lib/hitchspots"
 Dir.glob("./presenters/*.rb") { |f| require(f) }
 

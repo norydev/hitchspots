@@ -48,6 +48,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    redis (4.0.3)
     rerun (0.13.0)
       listen (~> 3.0)
     rollbar (2.18.0)
@@ -89,6 +90,7 @@ DEPENDENCIES
   rack-test
   rake
   rb-fsevent
+  redis
   rerun
   rollbar
   rubocop

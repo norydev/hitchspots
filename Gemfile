@@ -14,6 +14,9 @@ gem "mongo"
 gem "rollbar"
 gem "rubocop"
 
+# Redis for cache
+gem "redis"
+
 group :development do
   gem "dotenv"
   gem "rb-fsevent"
