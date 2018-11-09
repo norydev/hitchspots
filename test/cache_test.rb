@@ -68,8 +68,25 @@ class CacheTest < Minitest::Test
     assert_equal "value", from_redis
   end
 
+  def test_fetch_reassign_expire
+    Cache.set("key", "value", expires_in: 100)
+
+    Cache.fetch("key", expires_in: 10)
+
+    assert_in_delta 10, Cache.redis.ttl("key"), 1
+  end
+
+  def test_delete_matched
+    Cache.set("key-12312-boom", "value")
+
+    from_redis = Cache.delete_matched("key-*-boom")
+
+    assert_equal ["key-12312-boom"], from_redis
+    assert_nil   Cache.get("key-12312-boom")
+  end
+
   def test_expired_value
-    Cache.set("key", "old_value", expires_in: 10)
+    Cache.set("key", "value", expires_in: 10)
 
     assert_in_delta 10, Cache.redis.ttl("key"), 1
   end

@@ -18,12 +18,22 @@ module Cache
 
     def fetch(key, expires_in: nil)
       value = get(key)
-      return value if value
+
+      if value
+        redis.expire(key, expires_in) if expires_in
+        return value
+      end
 
       value = yield if block_given?
       set(key, value, expires_in: expires_in) if value
 
       value
+    end
+
+    def delete_matched(pattern)
+      redis.keys(pattern).each do |key|
+        delete(key)
+      end
     end
 
     def redis
