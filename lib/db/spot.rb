@@ -86,14 +86,7 @@ module DB
     # rubocop:enable Metrics/MethodLength
 
     def sanitize_string(string)
-      re_encoded = re_encode(string)
-      CGI.escape_html(re_encoded) if re_encoded # breaks for nil values
-    end
-
-    def re_encode(string)
-      string.encode("Windows-1252").force_encoding("utf-8")
-    rescue Encoding::UndefinedConversionError
-      nil
+      CGI.escape_html(string) if string # breaks for nil values
     end
   end
 end
