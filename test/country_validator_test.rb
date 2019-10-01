@@ -7,7 +7,7 @@ class CountryValidatorTest < Minitest::Test
 
     stub_request(:get, %r{https\://hitchwiki\.org/maps/api/\?country=CM.*})
       .to_return(status: 200,
-                 body: File.read("#{__dir__}/doubles/responses/hitchwiki_no_spots_example.json"))
+                 body:   File.read("#{__dir__}/doubles/responses/hitchwiki_no_spots_example.json"))
 
     error = assert_raises Hitchspots::ValidationError do
       Hitchspots::Country::Validator.new(invalid_country).validate!

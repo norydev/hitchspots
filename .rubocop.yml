@@ -20,3 +20,5 @@ Lint/HandleExceptions:
   Enabled: false
 Metrics/AbcSize:
   Max: 16.5
+Layout/AlignHash:
+  EnforcedColonStyle: table

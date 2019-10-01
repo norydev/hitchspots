@@ -5,7 +5,7 @@ class TripValidatorTest < Minitest::Test
   def setup
     stub_request(:get, %r{https\://api\.mapbox\.com/directions/v5/mapbox/driving/.*})
       .to_return(status: 200,
-                 body: File.read("#{__dir__}/doubles/responses/mapbox_example.json"))
+                 body:   File.read("#{__dir__}/doubles/responses/mapbox_example.json"))
   end
 
   def assert_raise_validation_error(trip)
@@ -41,7 +41,7 @@ class TripValidatorTest < Minitest::Test
   def test_no_coordinates
     stub_request(:get, %r{https\://api\.mapbox\.com/directions/v5/mapbox/driving\.*})
       .to_return(status: 200,
-                 body: File.read("#{__dir__}/doubles/responses/mapbox_no_route_example.json"))
+                 body:   File.read("#{__dir__}/doubles/responses/mapbox_no_route_example.json"))
 
     invalid_trip = Hitchspots::Trip.new(
       Hitchspots::Place.new("List tiny village",  lat: "1.23", lon: "2.34"),
@@ -57,7 +57,7 @@ class TripValidatorTest < Minitest::Test
 
     stub_request(:get, "https://nominatim.openstreetmap.org/search?format=json&limit=1&q=#{place}")
       .to_return(status: 200,
-                 body: File.read("#{__dir__}/doubles/responses/osm_no_place_example.json"))
+                 body:   File.read("#{__dir__}/doubles/responses/osm_no_place_example.json"))
 
     invalid_trip = Hitchspots::Trip.new(
       Hitchspots::Place.new(place),

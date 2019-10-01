@@ -80,7 +80,7 @@ module Hitchspots
         spots       = spots
         coordinates = coordinates
         time        = Time.now.utc.iso8601
-        ERB.new(File.read("#{__dir__}/templates/mm_template.xml.erb"), 0, ">")
+        ERB.new(File.read("#{__dir__}/templates/mm_template.xml.erb"), trim_mode: ">")
            .result(binding)
       end
     end
