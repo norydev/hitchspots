@@ -1,6 +1,6 @@
 # Hitchspots
 
-[![Build Status](https://travis-ci.org/NoryDev/hitchspots.svg?branch=master)](https://travis-ci.org/NoryDev/hitchspots) [![security](https://hakiri.io/github/NoryDev/hitchspots/master.svg)](https://hakiri.io/github/NoryDev/hitchspots/master)
+[![Build Status](https://travis-ci.org/NoryDev/hitchspots.svg?branch=master)](https://travis-ci.org/NoryDev/hitchspots)
 
 ## About
 
