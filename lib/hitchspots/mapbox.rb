@@ -17,7 +17,7 @@ module Hitchspots
       points   = geolocs.map { |geoloc| "#{geoloc[:lon]},#{geoloc[:lat]}" }.join(";")
       uri      = URI("#{base_url}#{points}")
 
-      uri.query = URI.encode_www_form(geometries: "geojson",
+      uri.query = URI.encode_www_form(geometries:   "geojson",
                                       access_token: ENV["MAPBOX_TOKEN"])
 
       res = Net::HTTP.get_response(uri)

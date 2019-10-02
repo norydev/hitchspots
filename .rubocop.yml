@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.6
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 Style/FrozenStringLiteralComment:
@@ -20,3 +20,5 @@ Lint/HandleExceptions:
   Enabled: false
 Metrics/AbcSize:
   Max: 16.5
+Layout/AlignHash:
+  EnforcedColonStyle: table

@@ -5,11 +5,11 @@ class CoordinateTest < Minitest::Test
   def setup
     stub_request(:get, %r{https\:\/\/nominatim\.openstreetmap\.org\/search\?.*})
       .to_return(status: 200,
-                 body: File.read("#{__dir__}/doubles/responses/osm_example.json"))
+                 body:   File.read("#{__dir__}/doubles/responses/osm_example.json"))
 
     stub_request(:get, %r{https\:\/\/api\.mapbox\.com\/directions\/v5\/mapbox\/driving\/.*})
       .to_return(status: 200,
-                 body: File.read("#{__dir__}/doubles/responses/mapbox_example.json"))
+                 body:   File.read("#{__dir__}/doubles/responses/mapbox_example.json"))
   end
 
   def test_for_trip_correct

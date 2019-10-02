@@ -45,25 +45,23 @@ get "/" do
 end
 
 get "/trip" do
-  begin
-    trip = Hitchspots::Deprecated::Trip.new(
-      from: Hitchspots::Place.new(params[:from],
-                                  lat: params[:from_lat],
-                                  lon: params[:from_lon]),
-      to:   Hitchspots::Place.new(params[:to],
-                                  lat: params[:to_lat],
-                                  lon: params[:to_lon])
-    )
+  trip = Hitchspots::Deprecated::Trip.new(
+    from: Hitchspots::Place.new(params[:from],
+                                lat: params[:from_lat],
+                                lon: params[:from_lon]),
+    to:   Hitchspots::Place.new(params[:to],
+                                lat: params[:to_lat],
+                                lon: params[:to_lon])
+  )
 
-    maps_me_kml = trip.spots(format: :kml)
+  maps_me_kml = trip.spots(format: :kml)
 
-    response.headers["Warning"] = "299 hitchspots.me/trip \"Deprecated\""
-    content_type "application/vnd.google-earth.kml+xml"
-    attachment trip.file_name(format: :kml)
-    maps_me_kml
-  rescue Hitchspots::NotFound => e
-    render_home(params.merge(error_msg: e.message))
-  end
+  response.headers["Warning"] = "299 hitchspots.me/trip \"Deprecated\""
+  content_type "application/vnd.google-earth.kml+xml"
+  attachment trip.file_name(format: :kml)
+  maps_me_kml
+rescue Hitchspots::NotFound => e
+  render_home(params.merge(error_msg: e.message))
 end
 
 get "/v2/trip" do
