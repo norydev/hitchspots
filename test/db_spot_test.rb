@@ -6,19 +6,18 @@ class DbSpotTest < Minitest::Test
     DB::Spot::Collection.delete_many
   end
 
-  def test_re_encoding
+  def test_html_escape
     spot = DB::Spot.new(id: "1", lat: "46.7635", lon: "6.643722",
-                        location: { locality: "KÃ¶niz" },
                         description: {
                           en_UK: {
-                            description: "TimiÈ™oara is a nice place"
+                            description: "<em>I like this place</em>"
                           }
                         })
 
     sanitized = spot.data[:sanitized]
 
-    assert_equal "Köniz", sanitized[:location][:locality]
-    assert_equal "Timișoara is a nice place", sanitized[:description][:en_UK][:description]
+    assert_equal "&lt;em&gt;I like this place&lt;/em&gt;",
+                 sanitized[:description][:en_UK][:description]
   end
 
   def test_update
