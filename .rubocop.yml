@@ -1,5 +1,6 @@
 AllCops:
   TargetRubyVersion: 2.6
+  NewCops: enable
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 Style/FrozenStringLiteralComment:
@@ -16,9 +17,13 @@ Metrics/LineLength:
   Max: 100
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: aligned
-Lint/HandleExceptions:
+Lint/SuppressedException:
   Enabled: false
 Metrics/AbcSize:
-  Max: 16.5
-Layout/AlignHash:
+  Max: 18
+Metrics/CyclomaticComplexity:
+  Max: 8
+Layout/HashAlignment:
   EnforcedColonStyle: table
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent

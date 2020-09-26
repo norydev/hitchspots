@@ -22,9 +22,9 @@ class HomePresenterTest < Minitest::Test
 
   def test_trip_with_params
     home = HomePresenter.new(places: {
-                               "0" => { name: "Here", lat: "1.234", lon: "2.324" },
-                               "1" => { name: "Da",   lat: "3.456", lon: "4.567" }
-                             })
+      "0" => { name: "Here", lat: "1.234", lon: "2.324" },
+      "1" => { name: "Da", lat: "3.456", lon: "4.567" }
+    })
 
     assert_equal home.trip.places.first.name, "Here"
     assert_equal home.trip.places.first.lat,  "1.234"

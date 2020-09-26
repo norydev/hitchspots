@@ -77,8 +77,8 @@ module Hitchspots
 
       def build_kml(spots, coordinates: nil)
         title       = "#{from.short_name} - #{to.short_name}"
-        spots       = spots
-        coordinates = coordinates
+        spots       = spots # rubocop:disable Lint/SelfAssignment
+        coordinates = coordinates # rubocop:disable Lint/SelfAssignment
         time        = Time.now.utc.iso8601
         ERB.new(File.read("#{__dir__}/templates/mm_template.xml.erb"), trim_mode: ">")
            .result(binding)

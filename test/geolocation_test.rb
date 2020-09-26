@@ -3,7 +3,7 @@ require "./app"
 
 class GeolocationTest < Minitest::Test
   def setup
-    stub_request(:get, %r{https\:\/\/nominatim\.openstreetmap\.org\/search\?.*})
+    stub_request(:get, %r{https://nominatim\.openstreetmap\.org/search\?.*})
       .to_return(status: 200,
                  body:   File.read("#{__dir__}/doubles/responses/osm_example.json"))
   end

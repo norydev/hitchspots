@@ -3,7 +3,7 @@ require "./app"
 
 class CountryTest < Minitest::Test
   def setup
-    stub_request(:get, %r{https\:\/\/hitchwiki\.org\/maps\/api\/\?country=FI.*})
+    stub_request(:get, %r{https://hitchwiki\.org/maps/api/\?country=FI.*})
       .to_return(status: 200,
                  body:   File.read("#{__dir__}/doubles/responses/all_spots_example.json"))
   end

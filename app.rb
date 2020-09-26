@@ -6,9 +6,9 @@ require "rollbar/middleware/sinatra"
 use Rollbar::Middleware::Sinatra
 
 require "./lib/hitchspots"
-Dir.glob("./presenters/*.rb") { |f| require(f) }
+Dir.glob("./presenters/*.rb").sort.each { |f| require(f) }
 
-set :public_folder, File.dirname(__FILE__) + "/public"
+set :public_folder, File.dirname(__FILE__) + "/public" # rubocop:disable Style/StringConcatenation
 
 configure :test do
   Mongo::Logger.logger.level = ::Logger::FATAL
@@ -35,7 +35,7 @@ configure :production do
     config.framework = "Sinatra: #{Sinatra::VERSION}"
     config.root = Dir.pwd
     config.exception_level_filters.merge!({
-      'Sinatra::NotFound' => 'warning'
+      "Sinatra::NotFound" => "warning"
     })
   end
 end
