@@ -50,7 +50,7 @@ GEM
       ffi (~> 1.0)
     rerun (0.13.0)
       listen (~> 3.0)
-    rollbar (2.22.1)
+    rollbar (3.0.0)
     rubocop (0.75.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
