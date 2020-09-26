@@ -34,9 +34,9 @@ configure :production do
     config.environment = Sinatra::Base.environment
     config.framework = "Sinatra: #{Sinatra::VERSION}"
     config.root = Dir.pwd
-    config.exception_level_filters.merge!({
-      "Sinatra::NotFound" => "warning"
-    })
+    config.before_process << proc do |options|
+      raise Rollbar::Ignore if options[:exception].is_a?(Sinatra::NotFound)
+    end
   end
 end
 
