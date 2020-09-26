@@ -3,7 +3,7 @@ require "./app"
 
 class TripValidatorTest < Minitest::Test
   def setup
-    stub_request(:get, %r{https\://api\.mapbox\.com/directions/v5/mapbox/driving/.*})
+    stub_request(:get, %r{https://api\.mapbox\.com/directions/v5/mapbox/driving/.*})
       .to_return(status: 200,
                  body:   File.read("#{__dir__}/doubles/responses/mapbox_example.json"))
   end
@@ -39,7 +39,7 @@ class TripValidatorTest < Minitest::Test
   end
 
   def test_no_coordinates
-    stub_request(:get, %r{https\://api\.mapbox\.com/directions/v5/mapbox/driving\.*})
+    stub_request(:get, %r{https://api\.mapbox\.com/directions/v5/mapbox/driving\.*})
       .to_return(status: 200,
                  body:   File.read("#{__dir__}/doubles/responses/mapbox_no_route_example.json"))
 
