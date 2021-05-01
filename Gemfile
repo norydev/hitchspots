@@ -12,7 +12,6 @@ gem "mongo"
 
 # Tools
 gem "rollbar"
-gem "rubocop"
 
 group :development do
   gem "dotenv"
@@ -29,4 +28,7 @@ end
 
 group :development, :test do
   gem "pry-byebug"
+  gem "rubocop"
+  gem "rubocop-minitest"
+  gem "rubocop-rake"
 end

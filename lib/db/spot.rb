@@ -65,23 +65,21 @@ module DB
 
     # rubocop:disable Metrics/MethodLength
     def sanitize(params, fix_encoding: true)
-      Hash[
-        params.map do |key, value|
-          next [key, value.to_f] if [:lat, :lon].include? key
+      params.map do |key, value|
+        next [key, value.to_f] if [:lat, :lon].include? key
 
-          # next unless == continue if
-          next [key, value] unless fix_encoding
+        # next unless == continue if
+        next [key, value] unless fix_encoding
 
-          new_value = case value
-                      when String then sanitize_string(value)
-                      when Array  then value.map { |v| sanitize(v) }
-                      when Hash   then sanitize(value)
-                      else             value
-                      end
+        new_value = case value
+                    when String then sanitize_string(value)
+                    when Array  then value.map { |v| sanitize(v) }
+                    when Hash   then sanitize(value)
+                    else             value
+                    end
 
-          [key, new_value]
-        end
-      ]
+        [key, new_value]
+      end.to_h
     end
     # rubocop:enable Metrics/MethodLength
 
