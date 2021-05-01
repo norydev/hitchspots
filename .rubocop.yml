@@ -13,7 +13,7 @@ Style/SymbolArray:
   Enabled: false
 Style/WordArray:
   Enabled: false
-Metrics/LineLength:
+Layout/LineLength:
   Max: 100
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: aligned
