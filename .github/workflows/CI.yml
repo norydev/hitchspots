@@ -1,0 +1,20 @@
+---
+name: CI
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services: 
+      mongodb:
+        image: mongo
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Ruby 2.6
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: specs + rubocop
+        run: |
+          bundle exec rake
