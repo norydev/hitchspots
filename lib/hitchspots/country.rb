@@ -16,10 +16,7 @@ module Hitchspots
     end
 
     def spots
-      @spots ||= begin
-        ids = spot_ids_from_hitchwiki
-        Spot.find(ids)
-      end
+      @spots ||= Spot.in_country(iso_code)
     end
 
     # Example: finland.kml
@@ -33,12 +30,6 @@ module Hitchspots
       time  = Time.now.utc.iso8601
       ERB.new(File.read("#{__dir__}/templates/mm_template.xml.erb"), trim_mode: ">")
          .result(binding)
-    end
-
-    private
-
-    def spot_ids_from_hitchwiki
-      Hitchwiki.spots_by_country(iso_code).map { |spot| spot[:id] }
     end
   end
 end

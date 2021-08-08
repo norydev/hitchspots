@@ -27,6 +27,17 @@ module Hitchspots
       ).to_a.map { |spot| spot.fetch("sanitized", nil) }.compact
     end
 
+    # Fetch all spots of a country in Database
+    #
+    # @param [String] iso_code alpha2 code of a country (capitalized)
+    #
+    # @return [Array] A collection of detailed spots
+    def self.in_country(iso_code)
+      ::DB::Spot::Collection.find(
+        "sanitized.location.country.iso" => iso_code
+      ).to_a.map { |spot| spot.fetch("sanitized", nil) }.compact
+    end
+
     def self.find(ids)
       if ids.is_a? Array
         ::DB::Spot::Collection.find(

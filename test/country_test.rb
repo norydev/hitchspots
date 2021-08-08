@@ -3,9 +3,19 @@ require "./app"
 
 class CountryTest < Minitest::Test
   def setup
-    stub_request(:get, %r{https://hitchwiki\.org/maps/api/\?country=FI.*})
-      .to_return(status: 200,
-                 body:   File.read("#{__dir__}/doubles/responses/all_spots_example.json"))
+    DB::Spot::Collection.delete_many
+
+    spot_file = File.read("#{__dir__}/doubles/responses/spot_example.json")
+    spot_example = JSON.parse(spot_file, symbolize_names: true)
+
+    finland_spots = 5.times.map do |n|
+      spot_example.merge(id: 100 + n, location: { country: { iso: "FI" } })
+    end
+    other_countries_spots = 5.times.map do |n|
+      spot_example.merge(id: 200 + n, location: { country: { iso: "CH" } })
+    end
+
+    [*finland_spots, *other_countries_spots].each { |spot| DB::Spot.new(spot).save }
   end
 
   def test_file_name
@@ -15,10 +25,10 @@ class CountryTest < Minitest::Test
   end
 
   def test_spot_ids_from_hitchwiki
-    correct_ids = ["355", "182", "362", "365", "189", "193", "206", "372", "373", "721"]
+    correct_ids = [100, 101, 102, 103, 104]
 
     country = Hitchspots::Country.new("FI")
 
-    assert_equal country.send(:spot_ids_from_hitchwiki), correct_ids
+    assert_equal country.spots.map { |spot| spot["id"] }, correct_ids
   end
 end
