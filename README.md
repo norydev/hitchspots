@@ -1,7 +1,5 @@
 # Hitchspots
 
-[![Build Status](https://travis-ci.org/NoryDev/hitchspots.svg?branch=master)](https://travis-ci.org/NoryDev/hitchspots)
-
 ## About
 
 [Hitchwiki](https://www.hitchwiki.org) is the ultimate resource for hitchhikers. There you can find a map with crowdsourced, rated hitchhiking spots everywhere in the world.
