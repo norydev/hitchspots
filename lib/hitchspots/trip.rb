@@ -26,7 +26,7 @@ module Hitchspots
     # Example: paris-berlin.kml
     def file_name(format: :txt)
       "#{places.first.short_name.downcase.gsub(/[^a-z]/, '_')}-"\
-      "#{places.last.short_name.downcase.gsub(/[^a-z]/, '_')}.#{format}"
+        "#{places.last.short_name.downcase.gsub(/[^a-z]/, '_')}.#{format}"
     end
 
     def kml_file

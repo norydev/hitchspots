@@ -30,7 +30,7 @@ module Hitchspots
       # Example: paris-berlin.kml
       def file_name(format: :txt)
         "#{from.short_name.downcase.gsub(/[^a-z]/, '_')}-"\
-        "#{to.short_name.downcase.gsub(/[^a-z]/, '_')}.#{format}"
+          "#{to.short_name.downcase.gsub(/[^a-z]/, '_')}.#{format}"
       end
 
       private

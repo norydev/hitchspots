@@ -65,7 +65,7 @@ module DB
 
     # rubocop:disable Metrics/MethodLength
     def sanitize(params, fix_encoding: true)
-      params.map do |key, value|
+      params.to_h do |key, value|
         next [key, value.to_f] if [:lat, :lon].include? key
 
         # next unless == continue if
@@ -79,7 +79,7 @@ module DB
                     end
 
         [key, new_value]
-      end.to_h
+      end
     end
     # rubocop:enable Metrics/MethodLength
 

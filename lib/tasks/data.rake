@@ -37,7 +37,7 @@ end
 
 # rubocop:disable Metrics/MethodLength
 def symbolize_keys(hash)
-  hash.map do |key, value|
+  hash.to_h do |key, value|
     new_key = case key
               when String then key.to_sym
               else             key
@@ -49,6 +49,6 @@ def symbolize_keys(hash)
                 end
 
     [new_key, new_value]
-  end.to_h
+  end
 end
 # rubocop:enable Metrics/MethodLength
