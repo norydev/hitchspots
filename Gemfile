@@ -1,13 +1,13 @@
 source "https://rubygems.org"
 
-ruby "3.1.0"
+ruby "2.6.8"
 
 gem "puma"
 gem "rake"
 gem "sinatra"
 
 # Mongo DB
-gem "bson"
+gem "bson_ext"
 gem "mongo"
 
 # Tools
