@@ -60,12 +60,12 @@ get "/trip" do
                                 lon: params[:to_lon])
   )
 
-  maps_me_kml = trip.spots(format: :kml)
+  kml_file = trip.spots(format: :kml)
 
   response.headers["Warning"] = "299 hitchspots.me/trip \"Deprecated\""
   content_type "application/vnd.google-earth.kml+xml"
   attachment trip.file_name(format: :kml)
-  maps_me_kml
+  kml_file
 rescue Hitchspots::NotFound => e
   render_home(params.merge(error_msg: e.message))
 end
