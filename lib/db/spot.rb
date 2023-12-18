@@ -9,7 +9,7 @@ module DB
   #
   # returned value should be ignored
   class Spot
-    Collection = Sinatra::Application.settings.mongo_db
+    Collection = Sinatra::Application.settings.spots_db
 
     # Fetch all spots in Database
     #

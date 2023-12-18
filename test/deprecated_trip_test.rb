@@ -1,7 +1,8 @@
 require_relative "test_helper"
+require_relative "base_test"
 require "./app"
 
-class DeprecatedTripTest < Minitest::Test
+class DeprecatedTripTest < BaseTest
   def test_file_name
     trip = Hitchspots::Deprecated::Trip.new(
       from: Hitchspots::Place.new("Berlin, city, Germany"),

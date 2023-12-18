@@ -19,6 +19,7 @@ group :development do
 end
 
 group :test do
+  gem "database_cleaner-mongo"
   gem "minitest"
   gem "minitest-color"
   gem "rack-test"

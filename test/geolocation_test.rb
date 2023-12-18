@@ -1,8 +1,11 @@
 require_relative "test_helper"
+require_relative "base_test"
 require "./app"
 
-class GeolocationTest < Minitest::Test
+class GeolocationTest < BaseTest
   def setup
+    super
+
     stub_request(:get, %r{https://nominatim\.openstreetmap\.org/search\?.*})
       .to_return(status: 200,
                  body:   File.read("#{__dir__}/doubles/responses/osm_example.json"))

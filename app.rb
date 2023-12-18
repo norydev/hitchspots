@@ -14,20 +14,23 @@ configure :test do
   Mongo::Logger.logger.level = Logger::FATAL
 
   db = Mongo::Client.new(["127.0.0.1:27017"], database: "hitchspots-test")
-  set :mongo_db, db[:spots]
+  set :base_db, db
+  set :spots_db, db[:spots]
 end
 
 configure :development do
   Dotenv.load
 
   db = Mongo::Client.new(["127.0.0.1:27017"], database: "hitchspots")
-  set :mongo_db, db[:spots]
+  set :base_db, db
+  set :spots_db, db[:spots]
   set :show_exceptions, false
 end
 
 configure :production do
   db = Mongo::Client.new(ENV["MONGODB_URI"])
-  set :mongo_db, db[:spots]
+  set :base_db, db
+  set :spots_db, db[:spots]
 
   Rollbar.configure do |config|
     config.access_token = ENV["ROLLBAR_ACCESS_TOKEN"]

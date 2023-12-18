@@ -1,7 +1,8 @@
 require_relative "test_helper"
+require_relative "base_test"
 require "./app"
 
-class HomePresenterTest < Minitest::Test
+class HomePresenterTest < BaseTest
   def test_empty_trip
     home = HomePresenter.new
     origin = home.trip.places.first
