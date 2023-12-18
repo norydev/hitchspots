@@ -31,6 +31,6 @@ class CoordinateTest < Minitest::Test
     geo = Hitchspots::Coordinate.send(:find_geolocation,
                                       Hitchspots::Place.new(lat: 1.23, lon: 3.45))
 
-    assert_equal geo, lat: 1.23, lon: 3.45
+    assert_equal({ lat: 1.23, lon: 3.45 }, geo)
   end
 end

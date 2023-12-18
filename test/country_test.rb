@@ -21,7 +21,7 @@ class CountryTest < Minitest::Test
   def test_file_name
     country = Hitchspots::Country.new("FI")
 
-    assert_equal country.file_name, "finland.txt"
+    assert_equal "finland.txt", country.file_name
   end
 
   def test_spot_ids_from_hitchwiki

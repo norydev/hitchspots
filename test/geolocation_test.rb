@@ -11,7 +11,7 @@ class GeolocationTest < Minitest::Test
   def test_find_by_place
     place = Hitchspots::Geolocation.find_by_place("Cologne")
 
-    assert_equal place[:lat], 50.938361
-    assert_equal place[:lon], 6.959974
+    assert_in_delta(place[:lat], 50.938361)
+    assert_in_delta(place[:lon], 6.959974)
   end
 end

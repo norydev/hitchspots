@@ -24,25 +24,25 @@ class AppTest < Minitest::Test
   def test_home
     get "/"
 
-    assert last_response.ok?
+    assert_predicate last_response, :ok?
   end
 
   def test_trip
     get "/trip", from: "Paris", to: "Berlin"
 
-    assert last_response.ok?
-    assert_equal last_response.headers["Warning"], "299 hitchspots.me/trip \"Deprecated\""
+    assert_predicate last_response, :ok?
+    assert_equal "299 hitchspots.me/trip \"Deprecated\"", last_response.headers["Warning"]
   end
 
   def test_v2_trip
     get "/v2/trip", places: { "0" => { name: "Paris" }, "1" => { name: "Berlin" } }
 
-    assert last_response.ok?
+    assert_predicate last_response, :ok?
   end
 
   def test_country
     get "/country", name: "Finland", iso_code: "FI"
 
-    assert last_response.ok?
+    assert_predicate last_response, :ok?
   end
 end

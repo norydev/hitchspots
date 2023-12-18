@@ -8,6 +8,6 @@ class DeprecatedTripTest < Minitest::Test
       to:   Hitchspots::Place.new("Paris, city, France")
     )
 
-    assert_equal trip.file_name, "berlin-paris.txt"
+    assert_equal "berlin-paris.txt", trip.file_name
   end
 end

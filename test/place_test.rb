@@ -5,13 +5,13 @@ class PlaceTest < Minitest::Test
   def test_short_name_for_existing_name
     place = Hitchspots::Place.new("Istanbul, city, Turkey")
 
-    assert_equal place.short_name, "Istanbul"
+    assert_equal "Istanbul", place.short_name
   end
 
   def test_short_name_for_already_short_name
     place = Hitchspots::Place.new("Istanbul")
 
-    assert_equal place.short_name, "Istanbul"
+    assert_equal "Istanbul", place.short_name
   end
 
   def test_short_name_for_nil_name
