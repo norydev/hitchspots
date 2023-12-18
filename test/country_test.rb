@@ -15,7 +15,7 @@ class CountryTest < Minitest::Test
       spot_example.merge(id: 200 + n, location: { country: { iso: "CH" } })
     end
 
-    [*finland_spots, *other_countries_spots].each { |spot| DB::Spot.new(spot).save }
+    [*finland_spots, *other_countries_spots].each { |spot| DB::Spot.new(**spot).save }
   end
 
   def test_file_name

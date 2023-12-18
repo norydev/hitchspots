@@ -1,13 +1,12 @@
 source "https://rubygems.org"
 
-ruby "2.6.8"
+ruby "3.2.2"
 
 gem "puma"
 gem "rake"
 gem "sinatra"
 
 # Mongo DB
-gem "bson_ext"
 gem "mongo"
 
 # Tools
@@ -20,7 +19,7 @@ group :development do
 end
 
 group :test do
-  gem "minitest", "~> 5.0"
+  gem "minitest"
   gem "minitest-color"
   gem "rack-test"
   gem "webmock"

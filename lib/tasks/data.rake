@@ -13,7 +13,7 @@ namespace :data do
         [:_id, :hw_id, :encoded_name, :encoded_desc].include? key
       end
 
-      spot = DB::Spot.new(temp_spot)
+      spot = DB::Spot.new(**temp_spot)
       spot.save
     end
   end
@@ -28,7 +28,7 @@ namespace :data do
     DB::Spot::Collection.find.projection("raw" => 1, _id: 0).to_a
                         .map { |s| symbolize_keys(s.fetch("raw")) }
                         .each do |spot|
-      temp_spot = DB::Spot.new(spot)
+      temp_spot = DB::Spot.new(**spot)
       temp_spot.save
     end
   end
