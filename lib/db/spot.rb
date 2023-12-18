@@ -9,7 +9,7 @@ module DB
   #
   # returned value should be ignored
   class Spot
-    Collection = Sinatra::Application.settings.mongo_db
+    Collection = Sinatra::Application.settings.spots_db
 
     # Fetch all spots in Database
     #
@@ -26,11 +26,11 @@ module DB
     end
 
     def data
-      { raw: raw, sanitized: sanitize(raw) }
+      { raw:, sanitized: sanitize(raw) }
     end
 
     def data_without_re_encoding
-      { raw: raw, sanitized: sanitize(raw, fix_encoding: false) }
+      { raw:, sanitized: sanitize(raw, fix_encoding: false) }
     end
 
     def save

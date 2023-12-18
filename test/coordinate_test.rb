@@ -1,8 +1,11 @@
 require_relative "test_helper"
+require_relative "base_test"
 require "./app"
 
-class CoordinateTest < Minitest::Test
+class CoordinateTest < BaseTest
   def setup
+    super
+
     stub_request(:get, %r{https://nominatim\.openstreetmap\.org/search\?.*})
       .to_return(status: 200,
                  body:   File.read("#{__dir__}/doubles/responses/osm_example.json"))
@@ -31,6 +34,6 @@ class CoordinateTest < Minitest::Test
     geo = Hitchspots::Coordinate.send(:find_geolocation,
                                       Hitchspots::Place.new(lat: 1.23, lon: 3.45))
 
-    assert_equal geo, lat: 1.23, lon: 3.45
+    assert_equal({ lat: 1.23, lon: 3.45 }, geo)
   end
 end

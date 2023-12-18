@@ -1,7 +1,8 @@
 require_relative "test_helper"
+require_relative "base_test"
 require "./app"
 
-class CountryValidatorTest < Minitest::Test
+class CountryValidatorTest < BaseTest
   def test_no_spots
     invalid_country = Hitchspots::Country.new("CM")
 

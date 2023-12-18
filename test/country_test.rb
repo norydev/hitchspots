@@ -1,9 +1,10 @@
 require_relative "test_helper"
+require_relative "base_test"
 require "./app"
 
-class CountryTest < Minitest::Test
+class CountryTest < BaseTest
   def setup
-    DB::Spot::Collection.delete_many
+    super
 
     spot_file = File.read("#{__dir__}/doubles/responses/spot_example.json")
     spot_example = JSON.parse(spot_file, symbolize_names: true)
@@ -15,13 +16,13 @@ class CountryTest < Minitest::Test
       spot_example.merge(id: 200 + n, location: { country: { iso: "CH" } })
     end
 
-    [*finland_spots, *other_countries_spots].each { |spot| DB::Spot.new(spot).save }
+    [*finland_spots, *other_countries_spots].each { |spot| DB::Spot.new(**spot).save }
   end
 
   def test_file_name
     country = Hitchspots::Country.new("FI")
 
-    assert_equal country.file_name, "finland.txt"
+    assert_equal "finland.txt", country.file_name
   end
 
   def test_spot_ids_from_hitchwiki

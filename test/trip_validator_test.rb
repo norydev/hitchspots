@@ -1,8 +1,11 @@
 require_relative "test_helper"
+require_relative "base_test"
 require "./app"
 
-class TripValidatorTest < Minitest::Test
+class TripValidatorTest < BaseTest
   def setup
+    super
+
     stub_request(:get, %r{https://api\.mapbox\.com/directions/v5/mapbox/driving/.*})
       .to_return(status: 200,
                  body:   File.read("#{__dir__}/doubles/responses/mapbox_example.json"))

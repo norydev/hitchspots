@@ -1,11 +1,8 @@
 require_relative "test_helper"
+require_relative "base_test"
 require "./app"
 
 class DbSpotTest < Minitest::Test
-  def setup
-    DB::Spot::Collection.delete_many
-  end
-
   def test_html_escape
     spot = DB::Spot.new(id: "1", lat: "46.7635", lon: "6.643722",
                         description: {

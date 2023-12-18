@@ -1,5 +1,8 @@
+require:
+  - rubocop-minitest
+  - rubocop-rake
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.2
   NewCops: enable
 Style/StringLiterals:
   EnforcedStyle: double_quotes
@@ -12,6 +15,8 @@ Style/NumericPredicate:
 Style/SymbolArray:
   Enabled: false
 Style/WordArray:
+  Enabled: false
+Style/FetchEnvVar:
   Enabled: false
 Layout/LineLength:
   Max: 100

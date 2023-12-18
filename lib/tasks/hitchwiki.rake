@@ -6,7 +6,7 @@ namespace :hitchwiki do
 
     spots.each do |spot|
       detailed_spot = Hitchspots::Hitchwiki.spot(spot[:id])
-      hitchspot = DB::Spot.new(detailed_spot)
+      hitchspot = DB::Spot.new(**detailed_spot)
       hitchspot.insert
     end
   end
@@ -21,7 +21,7 @@ namespace :hitchwiki do
     # add spots by missing ids
     (hitchwiki_ids - db_ids).each do |hw_id|
       detailed_spot = Hitchspots::Hitchwiki.spot(hw_id)
-      hitchspot = DB::Spot.new(detailed_spot)
+      hitchspot = DB::Spot.new(**detailed_spot)
       hitchspot.insert
     end
 
@@ -40,7 +40,7 @@ namespace :hitchwiki do
 
     (hw_ratings - db_ratings).each do |changed|
       detailed_spot = Hitchspots::Hitchwiki.spot(changed.first)
-      hitchspot = DB::Spot.new(detailed_spot)
+      hitchspot = DB::Spot.new(**detailed_spot)
       hitchspot.save
     end
   end
