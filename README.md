@@ -6,7 +6,10 @@
 
 This is very practical but hitchhikers might not have access to the Internet while they are on the road, and therefore would not be able to quickly go check if there is a good spot close to their location.
 
-Hitchspots is here to close the gap: before going on your trip, get a digest of all the spots along your route in KML format. This way, you can import this file in your favorite offline maps application, [Maps.me](https://maps.me), and have access to all the spots along your route without the need for an Internet connection.
+Hitchspots is here to close the gap: before going on your trip, get a digest of all the spots along your route in KML format. This way, you can import this file in your favorite offline maps application, [Organic Maps](https://organicmaps.app/), and have access to all the spots along your route without the need for an Internet connection.
+
+PS: Also works with the [Maps.me](https://maps.me/) app
+PPS: hitchwiki integration is broken, so newer spots are missing, they may come back some day.
 
 ## License and Data
 
