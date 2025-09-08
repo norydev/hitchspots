@@ -4,7 +4,7 @@ ruby "3.2.2"
 
 gem "puma"
 gem "rake"
-gem "sinatra"
+gem "sinatra", "~> 3.0"
 
 # Mongo DB
 gem "mongo"
