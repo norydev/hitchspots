@@ -9,7 +9,7 @@ module Hitchspots
     def self.all
       ::DB::Spot::Collection.find.projection(sanitized: 1, _id: 0)
                             .to_a.map { |spot| spot.fetch("sanitized", nil) }
-                            .compact
+                                 .compact
     end
 
     # Fetch spots in Database within a bounded area

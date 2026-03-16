@@ -20,7 +20,7 @@ class TripValidatorTest < BaseTest
   def test_too_many_places
     max = Hitchspots::Trip::Validator::MAX_NUMBER_OF_PLACES
 
-    too_many_places = Array.new((max + 1)) do
+    too_many_places = Array.new(max + 1) do
       Hitchspots::Place.new("Berlin", lat: "1.23", lon: "2.34")
     end
 

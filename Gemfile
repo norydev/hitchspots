@@ -7,7 +7,6 @@ gem "rake"
 gem "sinatra", "~> 3.0"
 
 # Mongo DB
-gem "bigdecimal"
 gem "mongo"
 
 # Tools
