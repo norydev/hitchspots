@@ -4,7 +4,8 @@ ruby file: ".ruby-version"
 
 gem "puma"
 gem "rake"
-gem "sinatra", "~> 3.0"
+gem "rackup"
+gem "sinatra"
 
 # Mongo DB
 gem "mongo"
