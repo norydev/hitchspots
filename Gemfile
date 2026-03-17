@@ -9,6 +9,7 @@ gem "sinatra"
 
 # Mongo DB
 gem "mongo"
+gem "bigdecimal" # looks like we need this explicitly?
 
 # Tools
 gem "rollbar"
