@@ -8,7 +8,7 @@ use Rollbar::Middleware::Sinatra
 require "./lib/hitchspots"
 Dir.glob("./presenters/*.rb").each { |f| require(f) }
 
-set :public_folder, File.dirname(__FILE__) + "/public" # rubocop:disable Style/StringConcatenation
+set :public_folder, File.dirname(__FILE__) + "/public"
 
 configure :test do
   Mongo::Logger.logger.level = Logger::FATAL

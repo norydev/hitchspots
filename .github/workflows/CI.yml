@@ -17,6 +17,6 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: specs + rubocop
+      - name: specs
         run: |
           bundle exec rake

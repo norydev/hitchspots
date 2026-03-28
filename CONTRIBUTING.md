@@ -10,6 +10,6 @@ You can use Github issues for that, please be as clear as possible. If necessary
 
 It can be either fixing an issue you found yourself, fixing one of the Github issues, or submitting a new feature. Please open a PR for any changes.
 
-Please follow the Rubocop rules (or suggest a change if appropriate), write unit tests for your changes, and update the documentation.
+Please write unit tests for your changes, and update the documentation.
 
 THANKS! :+1:

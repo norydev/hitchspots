@@ -63,7 +63,6 @@ module DB
 
     private
 
-    # rubocop:disable Metrics/MethodLength
     def sanitize(params, fix_encoding: true)
       params.to_h do |key, value|
         next [key, value.to_f] if [:lat, :lon].include? key
@@ -81,7 +80,6 @@ module DB
         [key, new_value]
       end
     end
-    # rubocop:enable Metrics/MethodLength
 
     def sanitize_string(string)
       CGI.escape_html(string) if string # breaks for nil values

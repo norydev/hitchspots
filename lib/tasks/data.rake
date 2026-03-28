@@ -1,6 +1,5 @@
 # Tasks to migrate data in mongoDB
 # Warning!! Only run each migration once
-# rubocop:disable Metrics/BlockLength
 namespace :data do
   desc "save raw as one value and sanitized as another"
   task :separate_raw_and_sanitized do
@@ -33,9 +32,7 @@ namespace :data do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength
 
-# rubocop:disable Metrics/MethodLength
 def symbolize_keys(hash)
   hash.to_h do |key, value|
     new_key = case key
@@ -51,4 +48,3 @@ def symbolize_keys(hash)
     [new_key, new_value]
   end
 end
-# rubocop:enable Metrics/MethodLength

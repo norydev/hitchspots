@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/BlockLength
 namespace :hitchwiki do
   desc "Harvest all spots on Hitchwiki"
   task :harvest do
@@ -45,4 +44,3 @@ namespace :hitchwiki do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength

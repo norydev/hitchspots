@@ -55,7 +55,6 @@ module Hitchspots
     #
     # @return [Array:Hash] Array of spot hashes, contains
     #         { id: String, lat: String, lon: String, rating: String }
-    # rubocop:disable Metrics/MethodLength
     def self.spots_by_country(country_iso_code)
       uri       = URI(BASE_URL)
       uri.query = URI.encode_www_form(country: country_iso_code,
@@ -74,6 +73,5 @@ module Hitchspots
 
       parsed_body
     end
-    # rubocop:enable Metrics/MethodLength
   end
 end

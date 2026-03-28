@@ -8,9 +8,4 @@ Rake::TestTask.new do |t|
   t.warning = false
 end
 
-desc "Look for style guide offenses in your code"
-task :rubocop do
-  sh "rubocop --format simple || true"
-end
-
-task default: [:rubocop, :test]
+task default: [:test]
