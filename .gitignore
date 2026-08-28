@@ -1,1 +1,9 @@
+# Ignore .env file containing credentials.
 .env
+
+# Ignore temp files
+/tmp
+
+# Ignore Mac and Linux file system files
+*.swp
+.DS_Store
